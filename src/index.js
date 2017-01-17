@@ -6,6 +6,8 @@ import chalk from 'chalk';
 import winston from 'winston';
 import inquirer from 'inquirer';
 import commander from 'commander';
+
+import render from './render';
 import questions from './questions';
 
 const pkg = path.resolve(__dirname, '../package.json');
@@ -17,5 +19,7 @@ commander
 .parse(process.argv);
 
 inquirer.prompt(questions).then((answers) => {
-  winston.info(`${chalk.blue('name: ')} ${answers.name}`);
+  render('README.md', answers).then((data) => {
+    winston.info(data);
+  });
 });

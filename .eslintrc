@@ -9,7 +9,8 @@
       "error", {
         "devDependencies": true
       }
-    ]
+    ],
+    "no-new": "off"
   },
   "globals": {
     "describe": true,
