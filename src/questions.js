@@ -11,7 +11,7 @@ export default [
     type: 'input',
     name: 'version',
     message: 'version: ',
-    default: '1.0.0',
+    default: '0.1.0',
   },
   {
     type: 'input',
