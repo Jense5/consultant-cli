@@ -23,7 +23,6 @@ export default [
     type: 'input',
     name: 'repository',
     message: 'repository: ',
-    default: '',
   },
   {
     type: 'input',
