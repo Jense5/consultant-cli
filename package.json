@@ -5,5 +5,9 @@
   "main": "lib/index.js",
   "repository": "https://github.com/Jense5/create-tool-hackathon.git",
   "author": "Jensen Bernard <jensenbernard5@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "winston": "^2.3.0"
+  }
 }
