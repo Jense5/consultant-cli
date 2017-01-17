@@ -32,7 +32,7 @@ inquirer.prompt(questions).then((answers) => {
   const start = moment.utc();
   render('README.md', answers).then(() => {
     const time = parseFloat(moment.utc().diff(start)) / 1000.00;
-    info(`${chalk.gray('Crafted app in')} ${chalk.green(time.toFixed(3))} ${chalk.gray('s!')}`);
+    info(`${chalk.gray('Crafted app in')} ${chalk.green(time.toFixed(3))}${chalk.gray('s!')}`);
     info(chalk.cyan('✨  Done, happy coding! 🎉'));
   });
 });
