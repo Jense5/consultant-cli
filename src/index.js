@@ -21,5 +21,6 @@ commander
 inquirer.prompt(questions).then((answers) => {
   render('README.md', answers).then((data) => {
     winston.info(data);
+    winston.info(chalk.green('Bye!'));
   });
 });
