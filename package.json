@@ -1,0 +1,9 @@
+{
+  "name": "custom-tool",
+  "version": "0.1.0",
+  "description": "Simple command line tool boilerplate",
+  "main": "lib/index.js",
+  "repository": "https://github.com/Jense5/create-tool-hackathon.git",
+  "author": "Jensen Bernard <jensenbernard5@gmail.com>",
+  "license": "MIT"
+}
