@@ -10,5 +10,9 @@
         "devDependencies": true
       }
     ]
+  },
+  "globals": {
+    "describe": true,
+    "it": true
   }
 }
