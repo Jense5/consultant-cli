@@ -33,7 +33,9 @@ winston.debug(`Choosing ${destination} as output directory`);
 
 mkdirp(destination, (error) => {
   if (error) { winston.error(chalk.red('✗ Unable to create directory!')); }
-  inquirer.prompt(questions).then((answers) => {
+  inquirer.prompt(questions).then((result) => {
+    const answers = result;
+    result.modules.forEach((module) => { answers[module] = true; });
     winston.debug('Processed answers');
     info('Crafting toolkit...');
     const start = moment.utc();

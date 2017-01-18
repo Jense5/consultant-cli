@@ -9,6 +9,12 @@ export default [
   },
   {
     type: 'input',
+    name: 'command',
+    message: 'command-name: ',
+    default: 'tool-run',
+  },
+  {
+    type: 'input',
     name: 'version',
     message: 'version: ',
     default: '0.1.0',
@@ -23,6 +29,7 @@ export default [
     type: 'input',
     name: 'repository',
     message: 'repository: ',
+    default: 'no-repo',
   },
   {
     type: 'input',
@@ -35,5 +42,20 @@ export default [
     name: 'license',
     message: 'license: ',
     default: 'MIT',
+  },
+  {
+    type: 'checkbox',
+    name: 'modules',
+    message: 'Please choose some basic features',
+    choices: [
+      {
+        name: 'command-line parser',
+        value: 'commander',
+      },
+      {
+        name: 'web-scraper',
+        value: 'cheerio',
+      },
+    ],
   },
 ];
