@@ -9,13 +9,13 @@ A **simple** and **dynamic** boilerplate generator with basic support for argume
 
 ### Installation
 
-```
+```sh
 $ npm install -g consultant-cli
 ```
 
 ### Usage
 
-```
+```sh
 $ mkdir project && cd project && consultant
 # Answer questions and let consultant do all the work...
 $ yarn install && yarn build && yarn start
