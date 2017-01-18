@@ -1,6 +1,6 @@
 ![consultant](http://i.imgur.com/phhV1uY.png)
 
-Very easy way to **dynamic** boilerplate generator with basic support for argument parsing, wab scraping, static typing, babel and much more. Simply run `consultant` and follow the instructions.
+A **simple** and **dynamic** boilerplate generator with basic support for argument parsing, wab scraping, static typing, babel and much more. Simply run `consultant` and follow the instructions.
 
 ### Installation
 
