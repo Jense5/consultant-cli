@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import winston from 'winston';
 
 import write from './write';
 import render from './render';
@@ -44,9 +45,11 @@ const read = (location: string): Promise<Object> =>
  */
 const readRecursive = (location: string, files: Array<string> = []): Promise<Array<string>> =>
   new Promise((resolve, reject) => {
+    winston.debug(`Read recursive: ${location}`);
     const stats = fs.statSync(location);
     if (stats.isFile()) { return resolve([...files, location]); }
     return read(location).then((data) => {
+      winston.debug(`Found these files: ${JSON.stringify(data, null, 4)}`);
       data.directories.reduce(
         (promise, directory) => promise.then(fls => readRecursive(directory, fls)),
         Promise.resolve([]),
@@ -79,6 +82,7 @@ const findAllFiles = (location: string): Promise<Array<string>> =>
 const transfer = (name: string, options: Object, location: string = process.cwd()): Promise<> =>
   new Promise((resolve, reject) => {
     const destination = path.resolve(location, name);
+    winston.debug(`Cloning ${name} to ${destination}`);
     render(name, options)
     .then(data => write(destination, data))
     .then(resolve)
@@ -96,6 +100,7 @@ const transfer = (name: string, options: Object, location: string = process.cwd(
 const transferTemplate = (options: Object, location: string = process.cwd()): Promise<> =>
   new Promise((resolve, reject) => {
     findAllFiles(path.resolve(__dirname, '../template')).then((files) => {
+      winston.debug(`All files to clone: ${JSON.stringify(files, null, 4)}`);
       files.reduce(
         (promise, file) => promise.then(() => transfer(file, options, location)),
         Promise.resolve(),

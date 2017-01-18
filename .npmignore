@@ -111,6 +111,6 @@ jspm_packages
 # Yarn Integrity file
 .yarn-integrity
 
-src
-test
-coverage
+/src
+/test
+/coverage

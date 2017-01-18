@@ -24,8 +24,8 @@ const conf = JSON.parse(fs.readFileSync(pkg, 'utf8'));
 commander
 .version(conf.version)
 .usage('[options]')
-.option('-d, --debug', 'Debug mode')
-.option('-o, --output [output]', 'Output directory')
+.option('-d, --debug', 'debug mode')
+.option('-o, --output [output]', 'output directory')
 .parse(process.argv);
 
 if (commander.debug) { winston.level = 'debug'; }

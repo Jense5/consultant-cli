@@ -19,7 +19,7 @@ export default [
     type: 'input',
     name: 'command',
     message: 'command-name: ',
-    default: 'tool-run',
+    default: 'custom-tool',
   },
   {
     type: 'input',
@@ -43,7 +43,7 @@ export default [
     type: 'input',
     name: 'author',
     message: 'author: ',
-    default: 'Jensen Bernard',
+    default: 'Jensen',
   },
   {
     type: 'input',
