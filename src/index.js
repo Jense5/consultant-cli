@@ -37,10 +37,10 @@ mkdirp(destination, (error) => {
     winston.debug('Processed answers');
     info('Crafting toolkit...');
     const start = moment.utc();
-    transfer('README.md', answers, destination).then(() => {
+    transfer(answers, destination).then(() => {
       const time = parseFloat(moment.utc().diff(start)) / 1000.00;
       info(`Created app in ${chalk.green(`${time.toFixed(3)}s`)}!`);
       info(chalk.cyan('✨  Done, happy coding! 🎉'));
-    });
+    }).catch(winston.error);
   });
 });

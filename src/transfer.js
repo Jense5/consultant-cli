@@ -26,14 +26,14 @@ const read = (location: string): Promise<Object> =>
   });
 
 const readRecursive = (location: string, files: Array<string> = []): Promise<Array<string>> =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     const stats = fs.statSync(location);
     if (stats.isFile()) { return resolve([...files, location]); }
     return read(location).then((data) => {
       data.directories.reduce(
         (promise, directory) => promise.then(fls => readRecursive(directory, fls)),
         Promise.resolve([]),
-      ).then(result => resolve([...files, ...data.files, ...result]));
+      ).then(result => resolve([...files, ...data.files, ...result])).catch(reject);
     });
   });
 
@@ -53,7 +53,14 @@ const transfer = (name: string, options: Object, location: string = process.cwd(
     .catch(reject);
   });
 
-export default transfer;
+const transferTemplate = (options: Object, location: string = process.cwd()): Promise<> =>
+  new Promise((resolve, reject) => {
+    findAllFiles(path.resolve(__dirname, '../template')).then((files) => {
+      files.reduce(
+        (promise, file) => promise.then(() => transfer(file, options, location)),
+        Promise.resolve(),
+      ).then(resolve).catch(reject);
+    }).catch(reject);
+  });
 
-console.log(process.cwd());
-findAllFiles(path.resolve(process.cwd(), 'template')).then(data => console.log(JSON.stringify(data, null, 4)));
+export default transferTemplate;
