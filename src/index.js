@@ -15,11 +15,13 @@ import questions from './questions';
 // eslint-disable-next-line no-console
 const info = console.info;
 
+// Load the default package configuration
 const pkg = path.resolve(__dirname, '../package.json');
 const conf = JSON.parse(fs.readFileSync(pkg, 'utf8'));
 
 commander
 .version(conf.version)
+.usage('[options]')
 .option('-d, --debug', 'Debug mode')
 .option('-o, --output [output]', 'Output directory')
 .parse(process.argv);

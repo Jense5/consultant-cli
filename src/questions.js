@@ -1,5 +1,13 @@
 // @flow
 
+/**
+ * Const Array with all questions to present to the user when asking about different options of his
+ * boilerplate. All these variables can be used in the template engine! Input types are strings,
+ * but the elements of the list (of options) are booleans. Feel free to add as many options as
+ * you like! The more options, the more powerful Consultant becomes.
+ * @constant
+ * @type {Array<string>}
+ */
 export default [
   {
     type: 'input',
@@ -55,6 +63,10 @@ export default [
       {
         name: 'web-scraper',
         value: 'cheerio',
+      },
+      {
+        name: 'lodash',
+        value: 'lodash',
       },
     ],
   },
