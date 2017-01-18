@@ -1,16 +1,25 @@
 {
-  "name": "custom-tool",
+  "name": "consultant-cli",
   "version": "0.1.0",
-  "description": "Simple command line tool boilerplate",
-  "main": "lib/index.js",
-  "repository": "https://github.com/Jense5/create-tool-hackathon.git",
+  "description": "Simple command line tool build fast customized cli boilerplates",
+  "repository": "https://github.com/Jense5/consultant.git",
   "author": "Jensen Bernard <jensenbernard5@gmail.com>",
+  "keywords": [
+    "consultant-cli"
+  ],
+  "main": "lib/index.js",
   "license": "MIT",
+  "bin": {
+    "consultant": "./lib/index.js"
+  },
   "scripts": {
-    "start": "node lib",
-    "clear": "rm -r lib",
+    "clear": "rimraf lib dist",
+    "lint": "eslint src test",
+    "start": "./lib/index.js",
     "build": "babel src -d lib",
-    "test": "mocha --compilers js:babel-core/register"
+    "permissions": "chmod +x lib/index.js",
+    "test": "mocha --compilers js:babel-core/register",
+    "prepublish": "npm run lint && npm run test && npm run clear && npm run build"
   },
   "dependencies": {
     "chalk": "^1.1.3",
@@ -35,6 +44,7 @@
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
     "flow-bin": "^0.37.4",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "rimraf": "^2.5.4"
   }
 }
