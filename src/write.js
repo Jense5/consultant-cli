@@ -1,8 +1,12 @@
 // @flow
 
-import fs from 'fs';
+import rfs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
+import Promise from 'bluebird';
+
+const fs = Promise.promisifyAll(rfs);
+const mkdir = Promise.promisify(mkdirp);
 
 /**
  * Writes the given data to the file at the given location. If the file or folder structure does
@@ -13,14 +17,9 @@ import mkdirp from 'mkdirp';
  */
 const write = (location: string, data: string): Promise<> =>
   new Promise((resolve, reject) => {
-    const dir = path.dirname(location);
-    mkdirp(dir, (issue) => {
-      if (issue) { return reject(issue); }
-      return fs.writeFile(location, data, (error) => {
-        if (error) { return reject(error); }
-        return resolve();
-      });
-    });
+    mkdir(path.dirname(location))
+    .then(() => resolve(fs.writeFileAsync(location, data)))
+    .catch(reject);
   });
 
 export default write;

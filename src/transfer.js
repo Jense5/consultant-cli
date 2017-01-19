@@ -1,11 +1,14 @@
 // @flow
 
-import fs from 'fs';
+import rfs from 'fs';
 import path from 'path';
 import winston from 'winston';
+import Promise from 'bluebird';
 
 import write from './write';
 import render from './render';
+
+const fs = Promise.promisifyAll(rfs);
 
 /**
  * Reads the given location and returns a promise with an Object with two keys: files and
@@ -18,21 +21,18 @@ import render from './render';
  */
 const read = (location: string): Promise<Object> =>
   new Promise((resolve, reject) => {
-    fs.stat(location, (derr, stat) => {
-      if (derr) { return reject(`Unable to read ${location}`); }
-      if (!stat.isDirectory()) { return resolve({ files: [location], directories: [] }); }
-      return fs.readdir(location, (rerr, files) => {
-        if (rerr) { return reject(`Unable to read childs of ${location}`); }
-        const response = { files: [], directories: [] };
-        const paths = files.map(file => path.resolve(location, file));
-        paths.forEach((file) => {
-          const stats = fs.statSync(file);
-          if (stats.isFile()) { response.files.push(file); }
-          if (stats.isDirectory()) { response.directories.push(file); }
-        });
-        return resolve(response);
-      });
-    });
+    fs.readdirAsync(location)
+    .then((files) => {
+      const names = files.map(file => path.resolve(location, file));
+      Promise.map(names, name => fs.statAsync(name))
+      .then((results) => {
+        const data = results.map((v, i) => ({ k: names[i], v: v.isFile() }));
+        const rFiles = data.filter(e => e.v).map(e => e.k);
+        const rDirectories = data.filter(e => !e.v).map(e => e.k);
+        resolve({ files: rFiles, directories: rDirectories });
+      }, reject);
+    })
+    .catch(reject);
   });
 
 /**
@@ -46,7 +46,7 @@ const read = (location: string): Promise<Object> =>
 const readRecursive = (location: string, files: Array<string> = []): Promise<Array<string>> =>
   new Promise((resolve, reject) => {
     winston.debug(`Read recursive: ${location}`);
-    const stats = fs.statSync(location);
+    const stats = rfs.statSync(location);
     if (stats.isFile()) { return resolve([...files, location]); }
     return read(location).then((data) => {
       winston.debug(`Found these files: ${JSON.stringify(data, null, 4)}`);

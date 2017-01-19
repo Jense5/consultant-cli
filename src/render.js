@@ -1,8 +1,11 @@
 // @flow
 
-import fs from 'fs';
+import rfs from 'fs';
 import path from 'path';
+import Promise from 'bluebird';
 import handlebars from 'handlebars';
+
+const fs = Promise.promisifyAll(rfs);
 
 /**
  * Renders the file with given name with the given options. It will use a default handlebars
@@ -14,12 +17,9 @@ import handlebars from 'handlebars';
  */
 const render = (name: string, options: Object): Promise<string> =>
   new Promise((resolve, reject) => {
-    const location = path.resolve(__dirname, '../template', name);
-    fs.readFile(location, 'utf8', (error, data) => {
-      if (error) { return reject(error); }
-      const template = handlebars.compile(data);
-      return resolve(template(options));
-    });
+    fs.readFileAsync(path.resolve(__dirname, '../template', name), 'utf8')
+    .then(data => resolve(handlebars.compile(data)(options)))
+    .catch(reject);
   });
 
 export default render;

@@ -26,3 +26,8 @@ You can always help me with a pull request for one of the following tasks. I hav
 - [ ] Lodash FP
 - [ ] Bluebird
 - [ ] Inquirer
+- [ ] Express
+- [ ] Execute commands
+- [ ] Requests option
+- [ ] Some math lib?
+- [ ] Check what I used with the tool itself...
