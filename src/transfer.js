@@ -11,63 +11,28 @@ import render from './render';
 const fs = Promise.promisifyAll(rfs);
 
 /**
- * Reads the given location and returns a promise with an Object with two keys: files and
- * directories. Files will be an Array<string> with the absolute paths of the files in the given
- * folder or an Array<string> with the given location if the given location is a file. If the
- * given location is a directory, the directories key will contain an Array<string> with all
- * absolute paths of the subdirectories of the given directory.
- * @param {string} location The location to check.
- * @returns {Promise<Object>} A promise with the read data.
+ * Reads all files in the given directory and subdirectories. Returns a promise with an
+ * Array<string> that contains all the absolute paths of the found files. The promise will reject
+ * when something went wrong while reading the directory or one of the subdirectories. If the
+ * given path is a file and not a directory, it will also reject. An optional list of strings
+ * can be provided as a second argument which will be merged with the list of results. This makes
+ * it possible to call this function recursively.
+ * @param {string} location The location of the directory to check
+ * @param {?Array<string>} previous The previous paths to merge with the results list
+ * @returns {Promise<Array<string>>} A promise with the read data
  */
-const read = (location: string): Promise<Object> =>
+const discover = (location: string, previous: Array<string> = []): Promise<Array<string>> =>
   new Promise((resolve, reject) => {
-    fs.readdirAsync(location)
-    .then((files) => {
+    fs.readdirAsync(location).then((files) => {
       const names = files.map(file => path.resolve(location, file));
-      Promise.map(names, name => fs.statAsync(name))
-      .then((results) => {
+      Promise.map(names, name => fs.statAsync(name)).then((results) => {
         const data = results.map((v, i) => ({ k: names[i], v: v.isFile() }));
-        const rFiles = data.filter(e => e.v).map(e => e.k);
-        const rDirectories = data.filter(e => !e.v).map(e => e.k);
-        resolve({ files: rFiles, directories: rDirectories });
-      }, reject);
-    })
-    .catch(reject);
-  });
-
-/**
- * Returns a promise with an Array<string> which contains all the absolute paths within the given
- * directory and nested subdirectories if the given location is a directory. If the given location
- * is a file, the list will just contain the given path.
- * @param {string} location The location of the file to check.
- * @param {Array<string>} files The files that should be added to the returned list.
- * @returns {Promise<Array<string>>} The promise with the list of all the files' paths.
- */
-const readRecursive = (location: string, files: Array<string> = []): Promise<Array<string>> =>
-  new Promise((resolve, reject) => {
-    winston.debug(`Read recursive: ${location}`);
-    const stats = rfs.statSync(location);
-    if (stats.isFile()) { return resolve([...files, location]); }
-    return read(location).then((data) => {
-      winston.debug(`Found these files: ${JSON.stringify(data, null, 4)}`);
-      data.directories.reduce(
-        (promise, directory) => promise.then(fls => readRecursive(directory, fls)),
-        Promise.resolve([]),
-      ).then(result => resolve([...files, ...data.files, ...result])).catch(reject);
-    });
-  });
-
-/**
- * Returns a promise with an Array<string> which are all the relative paths of the files to render
- * within the given location folder. It kind of does the same as readRecursive, however it formats
- * the locations to their relative locations.
- * @param {string} location The location of the directory to check recursively.
- */
-const findAllFiles = (location: string): Promise<Array<string>> =>
-  new Promise((resolve, reject) => {
-    readRecursive(location)
-    .then(data => resolve(data.map(l => path.relative(location, l))))
-    .catch(reject);
+        const cf = data.filter(e => e.v).map(e => path.resolve(path.dirname(location), e.k));
+        const cd = data.filter(e => !e.v).map(e => path.resolve(path.dirname(location), e.k));
+        Promise.reduce(cd, (f, d) => discover(d, f).then(acc => acc), [])
+        .then(sf => resolve([...previous, ...cf, ...sf])).catch(reject);
+      }).catch(reject);
+    }).catch(reject);
   });
 
 /**
@@ -81,7 +46,7 @@ const findAllFiles = (location: string): Promise<Array<string>> =>
  */
 const transfer = (name: string, options: Object, location: string = process.cwd()): Promise<> =>
   new Promise((resolve, reject) => {
-    const destination = path.resolve(location, name);
+    const destination = path.resolve(location, path.basename(name));
     winston.debug(`Cloning ${name} to ${destination}`);
     render(name, options)
     .then(data => write(destination, data))
@@ -99,7 +64,7 @@ const transfer = (name: string, options: Object, location: string = process.cwd(
  */
 const transferTemplate = (options: Object, location: string = process.cwd()): Promise<> =>
   new Promise((resolve, reject) => {
-    findAllFiles(path.resolve(__dirname, '../template')).then((files) => {
+    discover(path.resolve(__dirname, '../template')).then((files) => {
       winston.debug(`All files to clone: ${JSON.stringify(files, null, 4)}`);
       files.reduce(
         (promise, file) => promise.then(() => transfer(file, options, location)),
