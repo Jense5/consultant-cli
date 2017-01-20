@@ -6,8 +6,11 @@
 // import _ from 'lodash';
 
 {{/if}}
+
+{{#if commander}}
 import fs from 'fs';
 import path from 'path';
+{{/if}}
 import chalk from 'chalk';
 import winston from 'winston';{{#if cheerio}}
 import cheerio from 'cheerio';

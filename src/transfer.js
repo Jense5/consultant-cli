@@ -4,11 +4,14 @@ import rfs from 'fs';
 import path from 'path';
 import winston from 'winston';
 import Promise from 'bluebird';
+import mkdirp from 'mkdirp';
+import handlebars from 'handlebars';
 
-import write from './write';
-import render from './render';
+// import write from './write';
+// import render from './render';
 
 const fs = Promise.promisifyAll(rfs);
+const mkdir = Promise.promisify(mkdirp);
 
 /**
  * Reads all files in the given directory and subdirectories. Returns a promise with an
@@ -44,14 +47,24 @@ const discover = (location: string, previous: Array<string> = []): Promise<Array
  * @param {string} location The location of the destination folder.
  * @returns {Promise<>} A promise to know when the cloner is ready.
  */
-const transfer = (name: string, options: Object, location: string = process.cwd()): Promise<> =>
+
+const render = (file: string, opts: Object, output: string): Promise<> =>
   new Promise((resolve, reject) => {
-    const destination = path.resolve(location, path.basename(name));
-    winston.debug(`Cloning ${name} to ${destination}`);
-    render(name, options)
-    .then(data => write(destination, data))
-    .then(resolve)
+    mkdir(path.dirname(output))
+    .then(() => fs.readFileAsync(file, 'utf8'))
+    .then(data => handlebars.compile(data)(opts))
+    .then(data => resolve(fs.writeFileAsync(output, data)))
     .catch(reject);
+  });
+
+const createBoilerplate = (templ: string, opts: Object, dest: string = process.cwd()): Promise<> =>
+  new Promise((resolve, reject) => {
+    discover(templ)
+    .then((files) => {
+      Promise.map(files, (file) => {
+        render(file, opts, path.resolve(dest, path.relative(templ, file)));
+      }).then(resolve).catch(reject);
+    }).catch(reject);
   });
 
 /**
@@ -62,15 +75,7 @@ const transfer = (name: string, options: Object, location: string = process.cwd(
  * @param {string} location The location to clone the files to.
  * @returns {Promise<>} A promise to know when the process is finished.
  */
-const transferTemplate = (options: Object, location: string = process.cwd()): Promise<> =>
-  new Promise((resolve, reject) => {
-    discover(path.resolve(__dirname, '../template')).then((files) => {
-      winston.debug(`All files to clone: ${JSON.stringify(files, null, 4)}`);
-      files.reduce(
-        (promise, file) => promise.then(() => transfer(file, options, location)),
-        Promise.resolve(),
-      ).then(resolve).catch(reject);
-    }).catch(reject);
-  });
+const transferTemplate = (opts: Object, dest: string = process.cwd()): Promise<> =>
+  createBoilerplate(path.resolve(__dirname, '../template'), opts, dest);
 
 export default transferTemplate;
