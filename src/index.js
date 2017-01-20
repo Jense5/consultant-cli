@@ -5,18 +5,13 @@
 import rfs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import moment from 'moment';
 import winston from 'winston';
-import Promise from 'bluebird';
-import inquirer from 'inquirer';
 import commander from 'commander';
 import untildify from 'untildify';
 
-import questions from './questions';
-import createBoilerplate from './boilerplate';
-
-const fs = Promise.promisifyAll(rfs);
-
+import add from './add';
+import reset from './reset';
+import create from './create';
 
 // eslint-disable-next-line no-console
 const info = console.info;
@@ -72,7 +67,7 @@ if (commander.args.length < 1) {
     No command specified!
 
     Please use one of the commands below:
-    create - add - remove - snapshot - help
+    create - add - remove - snapshot - init - help
 
     For more information, hit me up on Github or check the documentation:
     ${chalk.cyan('https://github.com/Jense5/consultant')}
@@ -81,8 +76,19 @@ if (commander.args.length < 1) {
   process.exit();
 } else {
   switch (commander.args[0].toUpperCase()) {
-    case 'HELLO':
-      info('ja');
+    case 'ADD':
+      if (commander.args.length < 2) {
+        info(chalk.red.bold('\n    No link provided! 🤦‍\n'));
+        winston.debug(`${chalk.red('No link provided!')} - Bye!`);
+        process.exit();
+      }
+      add(commander.args[1], conf.templates);
+      break;
+    case 'CREATE':
+      create(destination, conf.templates);
+      break;
+    case 'RESET':
+      reset(conf.templates).catch(winston.error);
       break;
     default:
       info(chalk.red.bold('\n    Invalid command! 🤦‍\n'));
@@ -90,39 +96,3 @@ if (commander.args.length < 1) {
       process.exit();
   }
 }
-/*
-
-// Load the possible templates the user can choose and ask for one
-fs.readdirAsync(conf.templates).then((files) => {
-  const names = files.map(file => path.resolve(conf.templates, file));
-  Promise.map(names, name => fs.statAsync(name)).then((results) => {
-    const data = results.map((v, i) => ({ k: names[i], v: v.isFile() }));
-    const cd = data.filter(e => !e.v).map(e => path.resolve(path.dirname(conf.templates), e.k));
-    if (cd.length > 0) {
-      inquirer.prompt([{
-        type: 'list',
-        name: 'template',
-        message: 'Choose your boilerplate',
-        choices: cd.map(n => path.basename(n)),
-      }]).then((answer) => {
-        info(`Ok, ${chalk.magenta(answer.template)} it is then!`);
-      });
-    } else { info(chalk.red('No boilerplates installed! 😭')); }
-  });
-});
-
-/*
-inquirer.prompt(questions).then((result) => {
-  const answers = result;
-  result.modules.forEach((module) => { answers[module] = true; });
-  winston.debug('Processed answers');
-  info('Crafting toolkit...');
-  const start = moment.utc();
-  createBoilerplate(path.resolve(__dirname, '../template'), answers, destination)
-  .then(() => {
-    const time = parseFloat(moment.utc().diff(start)) / 1000.00;
-    info(`Created app in ${chalk.green(`${time.toFixed(3)}s`)}!`);
-    info(chalk.cyan('✨  Done, happy coding! 🎉'));
-  }).catch(winston.error);
-});
-*/
