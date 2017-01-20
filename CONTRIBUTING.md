@@ -13,6 +13,8 @@ You can always help me with a pull request for one of the following tasks. I hav
 - [ ] Add share button
 - [ ] Gitter Room
 - [ ] Link to this page from README.md
+- [ ] Support ~/ paths
+- [ ] Add config
 - [ ] Check [this article about nested promises](https://github.com/sindresorhus/promise-fun#how-can-i-reduce-nesting)
 
 ### Template
