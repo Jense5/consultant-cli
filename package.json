@@ -28,6 +28,7 @@
     "inquirer": "^2.0.0",
     "mkdirp": "^0.5.1",
     "moment": "^2.17.1",
+    "untildify": "^3.0.2",
     "winston": "^2.3.0"
   },
   "devDependencies": {
