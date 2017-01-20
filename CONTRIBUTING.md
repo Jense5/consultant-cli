@@ -14,7 +14,7 @@ You can always help me with a pull request for one of the following tasks. I hav
 - [ ] Gitter Room
 - [ ] Link to this page from README.md
 - [ ] Support ~/ paths
-- [ ] Add config
+- [ ] Add config (.env)
 - [ ] Check [this article about nested promises](https://github.com/sindresorhus/promise-fun#how-can-i-reduce-nesting)
 
 ### Template
@@ -31,5 +31,6 @@ You can always help me with a pull request for one of the following tasks. I hav
 - [ ] Express
 - [ ] Execute commands
 - [ ] Requests option
+- [ ] Dotenv
 - [ ] Some math lib?
 - [ ] Check what I used with the tool itself...

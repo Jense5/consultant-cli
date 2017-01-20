@@ -33,8 +33,8 @@ const discover = (location: string, previous: Array<string> = []): Promise<Array
         const cf = data.filter(e => e.v).map(e => path.resolve(path.dirname(location), e.k));
         const cd = data.filter(e => !e.v).map(e => path.resolve(path.dirname(location), e.k));
         Promise.reduce(cd, (f, d) => discover(d, f).then(acc => acc), [])
-        .then(sf => resolve([...previous, ...cf, ...sf])).catch(reject);
-      }).catch(reject);
+        .then(sf => resolve([...previous, ...cf, ...sf]));
+      });
     }).catch(reject);
   });
 
@@ -63,7 +63,7 @@ const createBoilerplate = (templ: string, opts: Object, dest: string = process.c
     .then((files) => {
       Promise.map(files, (file) => {
         render(file, opts, path.resolve(dest, path.relative(templ, file)));
-      }).then(resolve).catch(reject);
+      }).then(resolve);
     }).catch(reject);
   });
 
