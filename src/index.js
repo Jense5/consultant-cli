@@ -10,6 +10,7 @@ import commander from 'commander';
 import untildify from 'untildify';
 
 import content from './content';
+import list from './inter/list';
 import add from './add';
 import reset from './inter/reset';
 import create from './create';
@@ -81,6 +82,9 @@ if (commander.args.length < 1) {
       break;
     case 'RESET':
       reset(conf.templates);
+      break;
+    case 'LIST':
+      list(conf.templates);
       break;
     default:
       info(content.invalidCommand());

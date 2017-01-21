@@ -11,7 +11,7 @@ const fse = Promise.promisifyAll(rfse);
  * subfolders with rm -rf. The given parameter should not contain a path in `~.*` format or any
  * other format that can not be directly processed by `fs`.
  * @param {string} folder The templates folder location, which should be correctly formatted
- * @returns {Promise<>} A promise when the process will be ready.
+ * @returns {Promise<>} A promise when the process will be ready
  */
 const resetBoilerplates = (folder: string): Promise<> => fse.emptyDirAsync(folder);
 
