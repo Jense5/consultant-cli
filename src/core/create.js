@@ -1,5 +1,7 @@
 // @flow
 
+// TODO: Finish support for dynamic templates.
+
 import path from 'path';
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
