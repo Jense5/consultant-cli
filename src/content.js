@@ -36,9 +36,13 @@ exports.invalidCommand = (): string => `
 exports.listBPs = (names: Array<string>): string => `
   ${chalk.cyan('List of installed boilerplates:')}
 
-  ${names.map(name => `    - ${name}`).join('\n')}
+${names.map(name => `    - ${name}`).join('\n')}
 `;
 
 exports.noBPs = (): string => `
   ${chalk.red('No boilerplates installed! 😭')}
+`;
+
+exports.removedBP = (): string => `
+  ${chalk.cyan('Ok')}, I removed it! 🤘
 `;

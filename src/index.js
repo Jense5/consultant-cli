@@ -9,6 +9,7 @@ import winston from 'winston';
 import commander from 'commander';
 import untildify from 'untildify';
 
+import remove from './inter/remove';
 import content from './content';
 import list from './inter/list';
 import add from './add';
@@ -85,6 +86,9 @@ if (commander.args.length < 1) {
       break;
     case 'LIST':
       list(conf.templates);
+      break;
+    case 'REMOVE':
+      remove(conf.templates, ...commander.args.slice(1));
       break;
     default:
       info(content.invalidCommand());
