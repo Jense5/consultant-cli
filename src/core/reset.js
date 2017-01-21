@@ -3,6 +3,8 @@
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
 
+import config from '../common/config';
+
 const fse = Promise.promisifyAll(rfse);
 
 /**
@@ -13,6 +15,6 @@ const fse = Promise.promisifyAll(rfse);
  * @param {string} folder The templates folder location, which should be correctly formatted
  * @returns {Promise<>} A promise when the process will be ready
  */
-const resetBoilerplates = (folder: string): Promise<> => fse.emptyDirAsync(folder);
+const resetBoilerplates = (): Promise<> => fse.emptyDirAsync(config.templateDirectory);
 
 export default resetBoilerplates;
