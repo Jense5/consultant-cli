@@ -14,7 +14,7 @@ import content from './common/content';
 import list from './inter/list';
 import add from './inter/add';
 import reset from './inter/reset';
-import create from './create';
+import create from './inter/create';
 import snapshot from './inter/snapshot';
 
 // eslint-disable-next-line no-console
