@@ -15,6 +15,7 @@ import list from './inter/list';
 import add from './inter/add';
 import reset from './inter/reset';
 import create from './create';
+import snapshot from './inter/snapshot';
 
 // eslint-disable-next-line no-console
 const info = console.info;
@@ -85,6 +86,9 @@ if (commander.args.length < 1) {
       break;
     case 'REMOVE':
       remove(conf.templates, ...commander.args.slice(1));
+      break;
+    case 'SNAPSHOT':
+      snapshot(conf.templates, ...commander.args.slice(1));
       break;
     default:
       info(content.invalidCommand());
