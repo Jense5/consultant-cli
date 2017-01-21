@@ -35,7 +35,7 @@ const clone = (uri: string, tmpl: string): Promise<> => execute(cmd(uri, folder(
 
 const add = (uri: string, templates: string): Promise<> =>
   new Promise((resolve, reject) => {
-    if (!validURL.isWebUri(uri)) {
+    if (validURL.isWebUri(uri)) {
       if (canCreate(uri, templates)) {
         clone(uri, templates).then(resolve).catch(reject);
       } else { info(content.duplicateName()); }

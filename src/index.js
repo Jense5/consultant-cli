@@ -9,8 +9,9 @@ import winston from 'winston';
 import commander from 'commander';
 import untildify from 'untildify';
 
+import content from './content';
 import add from './add';
-import reset from './reset';
+import reset from './inter/reset';
 import create from './create';
 
 // eslint-disable-next-line no-console
@@ -62,16 +63,7 @@ winston.debug(`Choosing ${chalk.cyan(destination)} as output directory`);
 
 // Process the correct command and link it to the correct callback
 if (commander.args.length < 1) {
-  info(`
-    ${chalk.red.bold('Invalid use of Consultant 🤦‍')}
-    No command specified!
-
-    Please use one of the commands below:
-    create - add - remove - snapshot - init - help
-
-    For more information, hit me up on Github or check the documentation:
-    ${chalk.cyan('https://github.com/Jense5/consultant')}
-    `);
+  info(content.invalidCommand());
   winston.debug(`${chalk.red('No command specified')} - Bye!`);
   process.exit();
 } else {
@@ -88,11 +80,11 @@ if (commander.args.length < 1) {
       create(destination, conf.templates);
       break;
     case 'RESET':
-      reset(conf.templates).catch(winston.error);
+      reset(conf.templates);
       break;
     default:
-      info(chalk.red.bold('\n    Invalid command! 🤦‍\n'));
-      winston.debug(`${chalk.red('Invalid command')} - Bye!`);
+      info(content.invalidCommand());
+      winston.debug(`${chalk.red('Invalid command specified')} - Bye!`);
       process.exit();
   }
 }

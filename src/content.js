@@ -21,3 +21,14 @@ exports.removeSuccess = () => `
 exports.nevermind = () => `
   ${chalk.cyan('Ok')}, nevermind! 👌
 `;
+
+exports.invalidCommand = () => `
+  ${chalk.red.bold('Invalid use of Consultant 🤦‍')}
+  No command specified!
+
+  Please use one of the commands below:
+  create - add - remove - snapshot - init - help
+
+  For more information, hit me up on Github or check the documentation:
+  ${chalk.cyan('https://github.com/Jense5/consultant')}
+`;
