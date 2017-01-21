@@ -73,3 +73,21 @@ exports.unableToCopy = (): string => `
   ${chalk.red('Unable to copy the boilerplate!')}
   Make sure the given folder does exist.
 `;
+
+/**
+ * Returns a string to print that displays all the given names in a list. If the given list is
+ * empty, it will return a formatted message saying the list is empty.
+ * @param {Array<string>} names The names of the templates to display
+ * @returns {string} The string which is formatted to display to the user
+ */
+exports.listTemplates = (names: Array<string> = []): string =>
+  (names.length > 0 ? `
+  ${chalk.cyan('List of installed boilerplates:')}
+
+${names.map(name => `    - ${name}`).join('\n')}
+` : `
+  ${chalk.red('No boilerplates installed! 😭')}
+`);
+
+exports.templateAlreadyExists = (input: string) => `Template '${input}' already exists! 😕`;
+exports.templateNotInstalled = (input: string) => `Template ${input} not installed! 😕`;

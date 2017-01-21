@@ -6,8 +6,10 @@ import path from 'path';
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
 
-import config from '../configuration';
+import config from '../common/configuration';
 
+// eslint-disable-next-line no-console
+const info = console.info;
 const fse = Promise.promisifyAll(rfse);
 
 /**
@@ -17,7 +19,7 @@ const fse = Promise.promisifyAll(rfse);
  * @returns {boolean} True if and only if the template with given name is a boilerplate
  */
 const isBoilerplate = (name: string): boolean =>
-  !!name && !fs.existsSync(path.resolve(config.templateDirectory, name, config.configurationFile));
+  !!name && !fse.existsSync(path.resolve(config.templateDirectory, name, config.configurationFile));
 
 /**
  * Creates a boilerplate with given name in the output directory. If the output directory does not
@@ -29,7 +31,7 @@ const isBoilerplate = (name: string): boolean =>
  */
 const createBoilerplate = (name: string, output: string): Promise<> =>
   fse.ensureDirAsync(output).then(() =>
-    fse.copyAsync(path.resolve(config.templateDirectory, name), output);
+    fse.copyAsync(path.resolve(config.templateDirectory, name), output));
 
 /**
  * Creates a new project from the template with given name. The function supposes that the template
@@ -49,4 +51,4 @@ const create = (name: string, output: string): Promise<> =>
     } else { info('Templates are not supported.'); }
   });
 
-export default list;
+export default create;
