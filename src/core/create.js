@@ -4,24 +4,47 @@ import path from 'path';
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
 
+import config from '../configuration';
+
 const fse = Promise.promisifyAll(rfse);
 
 /**
- * Lists the templates folder by name. Returns a Promise<Array<string>> with the names. It does
- * not check if the boilerplates are valid. It just returns the names of the boilerplates located.
- * @param {string} folder The templates folder location, which should be correctly formatted
- * @returns {Promise<>} A promise with the names
+ * Checks if the installed template with given name is a boilerplate are not. For the exact
+ * definition of a boilerplate (vs template), please take a look at the documenation on Github.
+ * @param {string} name The name of the template to check if it is a boilerplate
+ * @returns {boolean} True if and only if the template with given name is a boilerplate
  */
-const list = (folder: string): Promise<Array<string>> =>
+const isBoilerplate = (name: string): boolean =>
+  !!name && !fs.existsSync(path.resolve(config.templateDirectory, name, config.configurationFile));
+
+/**
+ * Creates a boilerplate with given name in the output directory. If the output directory does not
+ * exist, it will be created. The boilerplate with given name should exist, as it is not being
+ * checked here. Do never pass the name of a template that does not exist!
+ * @param {string} name The name of the boilerplate to create
+ * @param {string} output The output location of the boilerplate
+ * @returns {Promise<>} A promise that will notify when the creation is finished
+ */
+const createBoilerplate = (name: string, output: string): Promise<> =>
+  fse.ensureDirAsync(output).then(() =>
+    fse.copyAsync(path.resolve(config.templateDirectory, name), output);
+
+/**
+ * Creates a new project from the template with given name. The function supposes that the template
+ * already exists, so checking making sure this is correct should be done before this function is
+ * called. It will detect whether it is a template or boilerplate and react accordingly. It is not
+ * necessary for the ouput directory to exist.
+ * @param {string} name The name of the template to create
+ * @param {string} output The output of directory of the new project
+ * @returns {Promise<>} A promise that will notify when the creation is finished
+ */
+const create = (name: string, output: string): Promise<> =>
   new Promise((resolve, fail) => {
-    fse.readdirAsync(folder).then((files) => {
-      const abspaths = files.map(file => path.resolve(folder, file));
-      Promise.map(abspaths, ap => fse.statAsync(ap)).then((results) => {
-        const data = results.map((v, i) => ({ k: abspaths[i], v: v.isDirectory() }));
-        const dirs = data.filter(e => e.v).map(e => path.basename(e.k));
-        resolve(dirs);
-      });
-    }).catch(fail);
+    if (isBoilerplate(name)) {
+      createBoilerplate(name, output)
+      .then(resolve)
+      .catch(fail);
+    } else { info('Templates are not supported.'); }
   });
 
 export default list;
