@@ -16,6 +16,7 @@ You can always help me with a pull request for one of the following tasks. I hav
 - [ ] Support ~/ paths
 - [ ] Add config (.env)
 - [x] Check [this article about nested promises](https://github.com/sindresorhus/promise-fun#how-can-i-reduce-nesting)
+- [ ] Remove .git of clone BPs
 
 ### Template
 - [x] Chalk
