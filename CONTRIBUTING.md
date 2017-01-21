@@ -4,6 +4,15 @@
 
 You can always help me with a pull request for one of the following tasks. I have separated the tasks in two sections: the **template** and the **tool**. All ideas regarding the generated boilerplate belong to the **template** section, the other ideas to **tool**. If you have some ideas, please create a new issue.
 
+### Actions
+- [x] Reset
+- [ ] List
+- [ ] Remove
+- [ ] Add
+- [ ] Snapshot
+- [ ] Create
+- [ ] Help
+
 ### Tool
 - [ ] Tests for the tool
 - [ ] Setup Continuous Integration

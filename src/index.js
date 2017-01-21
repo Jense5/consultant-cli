@@ -13,9 +13,10 @@ import remove from './inter/remove';
 import content from './common/content';
 import list from './inter/list';
 import add from './inter/add';
-import reset from './inter/reset';
 import create from './inter/create';
 import snapshot from './inter/snapshot';
+
+import reset from './inter/reset';
 
 // eslint-disable-next-line no-console
 const info = console.info;
@@ -79,7 +80,7 @@ if (commander.args.length < 1) {
       create(...commander.args.slice(1));
       break;
     case 'RESET':
-      reset(conf.templates);
+      reset().catch(winston.error);
       break;
     case 'LIST':
       list(conf.templates);
