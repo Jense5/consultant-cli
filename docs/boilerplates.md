@@ -2,7 +2,7 @@
 
 # Consultant Tutorial
 
-> This documentation is written for version 1.0, which is **not** yet released.
+> This document is written for version 1.0, which is **not** yet released.
 
 
 This document will explain how to setup boilerplates with [consultant](https://github.com/Jense5/consultant) and how to use them in your daily workflow. Consultant requires almost **no** extra time, however it might save you tons of it. You can also use it with whichever language you like.
