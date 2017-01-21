@@ -38,7 +38,7 @@ const validateNew = (names: Array<string>, input: string) =>
  * @returns {mixed} An error message (string) or true (boolean)
  */
 const validateOld = (names: Array<string>, input: string) =>
-  (_.invludes(names, input) ? true : content.templateNotInstalled(input));
+  (_.includes(names, input) ? true : content.templateNotInstalled(input));
 
 /**
  * Returns a list of questions that should be asked in order for the user to choose a valid
@@ -71,8 +71,8 @@ const askForTemplate = (message: string, names: Array<string>, existing: boolean
  */
 const ensureTemplateName = (name: string, message: string, existing: boolean): Promise<string> =>
   new Promise((resolve) => {
-    list(config.tempalteDirectory).then((names) => {
-      const incl = !_.includes(names, name);
+    list(config.templateDirectory).then((names) => {
+      const incl = _.includes(names, name);
       if (!name || ((incl || existing) && !(incl && existing))) {
         info(content.listTemplates(names));
         inquirer.prompt(askForTemplate(message, names, existing))
