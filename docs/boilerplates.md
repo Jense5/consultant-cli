@@ -2,6 +2,9 @@
 
 # Consultant Tutorial
 
+> This documentation is written for version 1.0, which is **not** yet released.
+
+
 This document will explain how to setup boilerplates with [consultant](https://github.com/Jense5/consultant) and how to use them in your daily workflow. Consultant requires almost **no** extra time, however it might save you tons of it. You can also use it with whichever language you like.
 
 ## Installation
@@ -24,9 +27,9 @@ That's why boilerplates are pretty popular these days. You find a lot of starter
 
 ### Consultant as a boilerplate manager
 
-In its most basic use case, [consultant](https://github.com/Jense5/consultant) can be used to manage your boilerplates. It will make sure they are available offline and will be generated without traces of the boilerplate repository. Below is a GIF that will illustrate how this works. We use [this](https://github.com/sahat/hackathon-starter) boilerplate as an example.
+In its most basic use case, [consultant](https://github.com/Jense5/consultant) can be used to manage your boilerplates. It will make sure they are available offline and will be generated without traces of the boilerplate repository. Below is a video that will illustrate how this works. We use [this](https://github.com/sahat/hackathon-starter) boilerplate as an example.
 
 ```sh
-$ # Add GIF here!
+$ # Add video here!
 $ cst add https://github.com/sahat/hackathon-starter web-hackathon-starter
 ```
