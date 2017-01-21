@@ -1,6 +1,6 @@
 
 const options = {
-  templateDirectory: '~/dir',
+  templateDirectory: '~/.cst-templates',
   configurationFile: 'consultant.config.js',
 };
 
