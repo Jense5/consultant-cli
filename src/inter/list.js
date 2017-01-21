@@ -1,7 +1,7 @@
 // @flow
 
 import list from '../core/list';
-import content from '../content';
+import content from '../common/content';
 
 // eslint-disable-next-line no-console
 const info = console.info;

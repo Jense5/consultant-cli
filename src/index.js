@@ -10,7 +10,7 @@ import commander from 'commander';
 import untildify from 'untildify';
 
 import remove from './inter/remove';
-import content from './content';
+import content from './common/content';
 import list from './inter/list';
 import add from './inter/add';
 import reset from './inter/reset';
@@ -76,7 +76,7 @@ if (commander.args.length < 1) {
       add(conf.templates, ...commander.args.slice(1));
       break;
     case 'CREATE':
-      create(destination, conf.templates);
+      create(...commander.args.slice(1));
       break;
     case 'RESET':
       reset(conf.templates);

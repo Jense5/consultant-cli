@@ -6,7 +6,7 @@ import inquirer from 'inquirer';
 import Promise from 'bluebird';
 
 import list from '../core/list';
-import content from '../content';
+import content from '../common/content';
 import { copy } from '../core/add';
 
 // eslint-disable-next-line no-console

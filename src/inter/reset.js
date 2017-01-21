@@ -4,7 +4,7 @@ import winston from 'winston';
 import inquirer from 'inquirer';
 
 import reset from '../core/reset';
-import content from '../content';
+import content from '../common/content';
 
 // eslint-disable-next-line no-console
 const info = console.info;
