@@ -91,3 +91,5 @@ ${names.map(name => `    - ${name}`).join('\n')}
 
 exports.templateAlreadyExists = (input: string) => `Template '${input}' already exists! 😕`;
 exports.templateNotInstalled = (input: string) => `Template ${input} not installed! 😕`;
+
+exports.createdTemplate = () => 'Created template.';

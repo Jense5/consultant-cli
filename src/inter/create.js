@@ -1,67 +1,25 @@
 // @flow
 
-import _ from 'lodash';
 import winston from 'winston';
-import inquirer from 'inquirer';
 
+import create from '../core/create';
 import utils from '../common/functions';
-
-import remove from '../core/remove';
-import list from '../core/list';
-import content from '../content';
-
-// eslint-disable-next-line no-console
-const info = console.info;
+import content from '../common/content';
 
 /**
- * Generates the question that should be asked to make sure the user wants to delete the correct
- * boilerplate. The answer he gives should also be in the given list of templates.
- * @param {Array<string>} names The valid modules which the user can remove
- * @return {Array<Object>} The questions to be passed to the inquirer module
+ * Creates a new project from the template with given name. If a template with the given name does
+ * not exist, a new one will be asked until it is valid. It is not necessary for the ouput
+ * directory to exist.
+ * @param {string} name The name of the template to create
+ * @param {string} output The output of directory of the new project
+ * @param {Promise<>} A promise that will notify when it is done
  */
-const nameInquirer = (names: Array<string>): Array<Object> => ([{
-  type: 'input',
-  name: 'name',
-  message: 'Which module would you like to remove?',
-  validate: input => (_.includes(names, input) ? true : `Boilerplate '${input}' not installed! 😕`),
-}]);
-
-/**
- * Function to make sure that there are boilerplates installed.
- * @param {string} folder The folder which should contain the boilerplates
- * @returns {Promise<>} Only succeeds when the given template folder has boilerplates
- */
-const makeSureThereAreBPs = (folder: string): Promise<> =>
-  new Promise((resolve, reject) => {
-    list(folder)
-    .then((names) => {
-      if (names.length < 1) { reject(); }
-      if (names.length > 0) { resolve(); }
-    });
-  });
-
-/**
- * Function to make sure that the given boilerplate name exists.
- * @param {string} folder The folder which should contain the boilerplates
- * @param {string} template The name that is provided by the user
- * @returns {Promise<>} Only succeeds when the given template folder has boilerplates
- */
-const makeSureNameIsSet = (folder: string, template: string): Promise<string> =>
-  new Promise((resolve) => {
-    list(folder)
-    .then((names) => {
-      if (!_.includes(names, template)) {
-        info(content.listBPs(names));
-        inquirer.prompt(nameInquirer(names))
-        .then(answer => resolve(answer.name));
-      } else { resolve(template); }
-    });
-  });
-
-const createCommand = (name: string, output: string = process.cwd()) => {
+const createCommand = (name: string, output: string = process.cwd()): Promise<> =>
   utils.ensureTemplatesInstalled().then(() => {
-    
-  }).catch(() => info(''));
-};
+    utils.ensureExistingTemplateName(name, 'Choose an installed template name:')
+    .then(validated => create(validated, output))
+    .then(() => utils.info(content.createdTemplate()))
+    .catch(winston.error);
+  }).catch(() => utils.info(content.listTemplates()));
 
 export default createCommand;

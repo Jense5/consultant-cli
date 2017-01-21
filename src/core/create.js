@@ -6,7 +6,7 @@ import path from 'path';
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
 
-import config from '../common/configuration';
+import config from '../common/config';
 
 // eslint-disable-next-line no-console
 const info = console.info;
