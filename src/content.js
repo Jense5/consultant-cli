@@ -33,16 +33,38 @@ exports.invalidCommand = (): string => `
   ${chalk.cyan('https://github.com/Jense5/consultant')}
 `;
 
-exports.listBPs = (names: Array<string>): string => `
+const listRawBPs = (names: Array<string>): string => `
   ${chalk.cyan('List of installed boilerplates:')}
 
 ${names.map(name => `    - ${name}`).join('\n')}
 `;
 
-exports.noBPs = (): string => `
+const noBPs = (): string => `
   ${chalk.red('No boilerplates installed! 😭')}
 `;
 
+exports.listBPs = (names: Array<string>): string =>
+  (names.length > 0 ? listRawBPs(names) : noBPs());
+
 exports.removedBP = (): string => `
   ${chalk.cyan('Ok')}, I removed it! 🤘
+`;
+
+exports.startClone = (): string => `
+  Starting to clone...`;
+
+exports.installedBP = (name: string): string => `  Installed ${chalk.cyan(name)}! 🤞
+`;
+
+exports.startCopy = (): string => `
+  Starting to copy...`;
+
+exports.noUrl = (): string => `
+  ${chalk.red('No link provided! 🤦‍')}
+`;
+
+exports.unableToClone = (): string => `
+  ${chalk.red('Unable to clone this repo!')}
+  Make sure that it is a valid git repository to clone.
+  If can't \`git clone\` it, it's invalid.
 `;

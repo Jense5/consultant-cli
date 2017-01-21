@@ -12,7 +12,7 @@ import untildify from 'untildify';
 import remove from './inter/remove';
 import content from './content';
 import list from './inter/list';
-import add from './add';
+import add from './inter/add';
 import reset from './inter/reset';
 import create from './create';
 
@@ -34,6 +34,7 @@ commander
 .version(pack.version)
 .usage('<command> [options]')
 .option('-d, --debug', 'debug mode')
+.option('-n, --name [name]', 'name of boilerplate to add')
 .option('-o, --output [output]', 'output directory')
 .parse(process.argv);
 
@@ -71,12 +72,7 @@ if (commander.args.length < 1) {
 } else {
   switch (commander.args[0].toUpperCase()) {
     case 'ADD':
-      if (commander.args.length < 2) {
-        info(chalk.red.bold('\n    No link provided! 🤦‍\n'));
-        winston.debug(`${chalk.red('No link provided!')} - Bye!`);
-        process.exit();
-      }
-      add(commander.args[1], conf.templates);
+      add(conf.templates, ...commander.args.slice(1));
       break;
     case 'CREATE':
       create(destination, conf.templates);

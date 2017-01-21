@@ -11,9 +11,6 @@ const info = console.info;
  * @param {string} folder The folder location of the templates
  */
 const listCommand = (folder: string) =>
-  list(folder).then((n) => {
-    if (n.length > 0) { info(content.listBPs(n)); }
-    if (n.length < 1) { info(content.noBPs()); }
-  });
+  list(folder).then(n => info(content.listBPs(n)));
 
 export default listCommand;

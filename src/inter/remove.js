@@ -68,7 +68,7 @@ const removeCommand = (folder: string, template: string) => {
     .then(name => remove(folder, name))
     .then(() => info(content.removedBP()))
     .catch(winston.error);
-  }).catch(() => info(content.noBPs()));
+  }).catch(() => info(content.listBPs([])));
 };
 
 export default removeCommand;
