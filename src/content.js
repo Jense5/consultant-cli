@@ -68,3 +68,8 @@ exports.unableToClone = (): string => `
   Make sure that it is a valid git repository to clone.
   If can't \`git clone\` it, it's invalid.
 `;
+
+exports.unableToCopy = (): string => `
+  ${chalk.red('Unable to copy the boilerplate!')}
+  Make sure the given folder does exist.
+`;
