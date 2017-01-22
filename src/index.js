@@ -11,11 +11,11 @@ import untildify from 'untildify';
 
 import remove from './inter/remove';
 import content from './common/content';
-import list from './inter/list';
 import add from './inter/add';
 import create from './inter/create';
 import snapshot from './inter/snapshot';
 
+import list from './inter/list';
 import reset from './inter/reset';
 
 // eslint-disable-next-line no-console
@@ -83,7 +83,7 @@ if (commander.args.length < 1) {
       reset().catch(winston.error);
       break;
     case 'LIST':
-      list(conf.templates);
+      list().catch(winston.error);
       break;
     case 'REMOVE':
       remove(conf.templates, ...commander.args.slice(1));

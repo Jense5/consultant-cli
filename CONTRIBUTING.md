@@ -6,7 +6,7 @@ You can always help me with a pull request for one of the following tasks. I hav
 
 ### Actions
 - [x] Reset
-- [ ] List
+- [x] List
 - [ ] Remove
 - [ ] Add
 - [ ] Snapshot
