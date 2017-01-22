@@ -29,7 +29,7 @@ const confirmation = (): Array<Object> => ([{
  * the boilerplates. Only reset if this is the case! Returns a promise without parameters.
  * @returns {Promise<>} A promise which will notify when the reset is finished
  */
-const resetCommand = () =>
+const resetCommand = (): Promise<> =>
   inquirer.prompt(confirmation()).then((user) => {
     if (user.sure) {
       reset()

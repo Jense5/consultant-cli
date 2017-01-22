@@ -74,7 +74,7 @@ if (commander.args.length < 1) {
 } else {
   switch (commander.args[0].toUpperCase()) {
     case 'ADD':
-      add(conf.templates, ...commander.args.slice(1));
+      add(...commander.args.slice(1)).catch(winston.error);
       break;
     case 'CREATE':
       create(...commander.args.slice(1));

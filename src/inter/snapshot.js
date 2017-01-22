@@ -7,7 +7,7 @@ import Promise from 'bluebird';
 
 import list from '../core/list';
 import content from '../common/content';
-import { copy } from '../core/add';
+import { local } from '../core/add';
 
 // eslint-disable-next-line no-console
 const info = console.info;
@@ -54,8 +54,8 @@ const snapshot = (folder: string, raw: string) => {
   makeSureValidName(folder, raw)
   .then((name) => {
     info(content.startCopy());
-    copy(process.cwd(), path.resolve(folder, name))
-    .then(() => info(content.installedBP(name)))
+    local(process.cwd(), path.resolve(folder, name))
+    .then(() => info(content.installedTemplate(name)))
     .catch(() => info(content.unableToCopy()));
   });
 };

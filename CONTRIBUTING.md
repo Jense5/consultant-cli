@@ -8,7 +8,7 @@ You can always help me with a pull request for one of the following tasks. I hav
 - [x] Reset
 - [x] List
 - [x] Remove
-- [ ] Add
+- [x] Add (test invalid local?);
 - [ ] Snapshot
 - [ ] Create
 - [ ] Help

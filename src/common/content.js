@@ -53,7 +53,7 @@ exports.removedTemplate = (): string => `
 exports.startClone = (): string => `
   Starting to clone...`;
 
-exports.installedBP = (name: string): string => `  Installed ${chalk.cyan(name)}! 🤞
+exports.installedTemplate = (name: string): string => `  Installed ${chalk.cyan(name)}! 🤞
 `;
 
 exports.startCopy = (): string => `
@@ -72,6 +72,7 @@ exports.unableToClone = (): string => `
 exports.unableToCopy = (): string => `
   ${chalk.red('Unable to copy the boilerplate!')}
   Make sure the given folder does exist.
+  Please check the regex for online repos: /http/g
 `;
 
 /**

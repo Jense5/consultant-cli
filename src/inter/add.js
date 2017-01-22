@@ -1,78 +1,65 @@
 // @flow
 
-import _ from 'lodash';
-import fs from 'fs';
 import path from 'path';
-import inquirer from 'inquirer';
 import validUrl from 'valid-url';
 import Promise from 'bluebird';
 
-import list from '../core/list';
+import add from '../core/add';
+import utils from '../common/functions';
 import content from '../common/content';
-import { clone, copy } from '../core/add';
-
-// eslint-disable-next-line no-console
-const info = console.info;
 
 /**
- * Generates the question that should be asked to make sure the user wants to add the correct
- * boilerplate. The answer he gives should also not exist.
- * @param {Array<string>} names The boilerplates which the user can not choose
- * @return {Array<Object>} The questions to be passed to the inquirer module
+ * Adds the online repository to the local template folder as a template with the given name.
+ * All parameters should already be verified.
+ * @param {string} uri The url to clone the repository from
+ * @param {string} name The name of the local template
+ * @returns {Promise<>} A promise which will notify when the cloning is finished
  */
-const nameInquirer = (names: Array<string>): Array<Object> => ([{
-  type: 'input',
-  name: 'name',
-  message: 'How would you like to call the new boilerplate?',
-  validate: input => (_.includes(names, input) ? `Boilerplate '${input}' exists! 😕` : true),
-}]);
-
-/**
- * Function to make sure that the given boilerplate name doest not exits.
- * @param {string} folder The folder which should contain the boilerplates
- * @param {string} template The name that is provided by the user
- * @returns {Promise<>} Only succeeds when the given template folder does not contain boilerplate
- */
-const makeSureValidName = (folder: string, template: string): Promise<> =>
+const addOnline = (uri: string, validated: string): Promise<> =>
   new Promise((resolve) => {
-    list(folder)
-    .then((names) => {
-      if (!template || _.includes(names, template)) {
-        info(content.listBPs(names));
-        inquirer.prompt(nameInquirer(names))
-        .then(answer => resolve(answer.name));
-      } else { resolve(template); }
+    utils.info(content.startClone());
+    add.online(uri, validated).then(() => {
+      utils.info(content.installedTemplate(validated));
+      resolve();
+    }).catch(() => {
+      utils.info(content.unableToClone());
     });
   });
 
 /**
- * Adds the given uri to the given templates folder, with the given name. This can be an online
+ * Adds the local folder to the local template folder as a template with the given name.
+ * All parameters should already be verified.
+ * @param {string} uri The folder path to copy the template from
+ * @param {string} name The name of the local template
+ * @returns {Promise<>} A promise which will notify when the copy action is finished
+ */
+const addLocal = (uri: string, validated: string): Promise<> =>
+  new Promise((resolve) => {
+    utils.info(content.startCopy());
+    add.local(path.resolve(process.cwd(), uri), validated).then(() => {
+      utils.info(content.installedTemplate(validated));
+      resolve();
+    }).catch(() => {
+      utils.info(content.unableToCopy());
+    });
+  });
+
+/**
+ * Adds the given uri to the templates folder, with the given name. This can be an online
  * repo or an offline folder.
- * @param {string} folder The folder to store the templates
  * @param {string} uri The location (online or offline) of the template
  * @param {string} name The name of the template.
+ * @returns {Promise<>} A promise which will notify when the list is finished
  */
-const add = (folder: string, uri: string, raw: string) => {
-  if (uri) {
-    makeSureValidName(folder, raw)
-    .then((name) => {
-      if (validUrl.isWebUri(uri)) {
-        info(content.startClone());
-        clone(uri, path.resolve(folder, name))
-        .then(() => info(content.installedBP(name)))
-        .catch(() => info(content.unableToClone()));
-      } else {
-        info(content.startCopy());
-        if (fs.existsSync(path.resolve(process.cwd(), uri))) {
-          copy(path.resolve(process.cwd(), uri), path.resolve(folder, name))
-          .then(() => info(content.installedBP(name)))
-          .catch(() => info(content.unableToCopy()));
-        } else { info(content.unableToCopy()); }
-      }
-    });
-  } else {
-    info(content.noUrl());
-  }
-};
+const addCommand = (uri: string, name: string): Promise<> =>
+  new Promise((resolve) => {
+    if (uri) {
+      utils.ensureNonExistingTemplateName(name, 'How would you like to call the template?')
+      .then((validated) => {
+        if (validUrl.isWebUri(uri)) { addOnline(uri, validated).then(resolve); }
+        if (!validUrl.isWebUri(uri)) { addLocal(uri, validated).then(resolve); }
+      });
+    } else { utils.info(content.noUrl()); }
+  });
 
-export default add;
+export default addCommand;
