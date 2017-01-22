@@ -9,7 +9,7 @@ You can always help me with a pull request for one of the following tasks. I hav
 - [x] List
 - [x] Remove
 - [x] Add (test invalid local?);
-- [ ] Snapshot
+- [x] Snapshot
 - [ ] Create
 - [ ] Help
 
