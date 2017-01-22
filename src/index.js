@@ -74,22 +74,22 @@ if (commander.args.length < 1) {
 } else {
   switch (commander.args[0].toUpperCase()) {
     case 'ADD':
-      add(...commander.args.slice(1)).catch(winston.error);
+      add(...commander.args.slice(1));
       break;
     case 'CREATE':
       create(...commander.args.slice(1));
       break;
     case 'RESET':
-      reset().catch(winston.error);
+      reset();
       break;
     case 'LIST':
-      list().catch(winston.error);
+      list();
       break;
     case 'REMOVE':
-      remove(...commander.args.slice(1)).catch(winston.error);
+      remove(...commander.args.slice(1));
       break;
     case 'SNAPSHOT':
-      snapshot(conf.templates, ...commander.args.slice(1));
+      snapshot(...commander.args.slice(1));
       break;
     default:
       info(content.invalidCommand());
