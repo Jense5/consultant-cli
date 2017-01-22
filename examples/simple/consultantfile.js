@@ -9,6 +9,8 @@ module.exports = (consultant) => {
    * define them (but it is allowed for better overview).
    */
   consultant.source = 'cst';
+  // REMOVE TEMPLATE?
+  // WE CAN BATCH IT?
   consultant.type = consultant.types.TEMPLATE;
 
   /**
@@ -51,5 +53,9 @@ module.exports = (consultant) => {
       choices: [ { name: 'optionA', value: 'A' }, { name: 'optionB', value: 'B' } ],
     },
   ]);
+
+  consultant.tutorial = input => `
+    Hey!
+  `;
 
 };

@@ -15,6 +15,7 @@ import add from './inter/add';
 import create from './inter/create';
 import snapshot from './inter/snapshot';
 
+import help from './inter/help';
 import list from './inter/list';
 import reset from './inter/reset';
 
@@ -90,6 +91,9 @@ if (commander.args.length < 1) {
       break;
     case 'SNAPSHOT':
       snapshot(...commander.args.slice(1));
+      break;
+    case 'HELP':
+      help();
       break;
     default:
       info(content.invalidCommand());

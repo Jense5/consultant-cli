@@ -94,3 +94,18 @@ exports.templateAlreadyExists = (input: string) => `Template '${input}' already 
 exports.templateNotInstalled = (input: string) => `Template ${input} not installed! 😕`;
 
 exports.createdTemplate = () => 'Created template.';
+
+exports.help = () => `
+  Welcome to consultant! 🎉
+
+  If you are new to this tool, I advise you to checkout the quickstart:
+  ${chalk.cyan('https://jense5.github.io/consultant/quickstart.html')}
+
+  In this version, you can use the following commands:
+  create - add - snapshot - list - remove - reset - help
+
+  Problems, questions, or just want to share some thoughts? 🤔
+  ${chalk.cyan('https://jense5.github.io/consultant/thoughts.html')}
+
+  Have fun! 🍻
+`;

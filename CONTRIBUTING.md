@@ -9,7 +9,7 @@
 - [x] Add (test invalid local?);
 - [x] Snapshot
 - [ ] Create
-- [ ] Help
+- [x] Help
 - [ ] Setup config & index
 - [ ] Do we need gulp/grunt?
 - [ ] Support ~/ paths

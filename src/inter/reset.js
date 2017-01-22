@@ -5,10 +5,8 @@ import inquirer from 'inquirer';
 
 import reset from '../core/reset';
 import config from '../common/config';
+import utils from '../common/functions';
 import content from '../common/content';
-
-// eslint-disable-next-line no-console
-const info = console.info;
 
 /**
  * Creates a list of questions which should be asked to the user when he wants to reset the
@@ -33,10 +31,10 @@ const resetCommand = (): Promise<> =>
   inquirer.prompt(confirmation()).then((user) => {
     if (user.sure) {
       reset()
-      .then(() => info(content.removeSuccess()))
+      .then(() => utils.info(content.removeSuccess()))
       .catch(winston.error);
     } else {
-      info(content.nevermind());
+      utils.info(content.nevermind());
     }
   });
 
