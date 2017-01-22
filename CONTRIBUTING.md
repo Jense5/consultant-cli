@@ -10,9 +10,10 @@
 - [x] Snapshot
 - [ ] Create
 - [ ] Help
-- [ ] Go over all files & refactor content!
 - [ ] Setup config & index
+- [ ] Do we need gulp/grunt?
 - [ ] Support ~/ paths
+- [ ] Go over all files & refactor content!
 - [ ] Remove .git of clone templates
 - [ ] Tests for the tool
 - [ ] Setup Continuous Integration
@@ -40,4 +41,6 @@
 - [ ] Requests option
 - [ ] Dotenv
 - [ ] Some math lib?
+- [ ] Grunt
+- [ ] Gulp
 - [ ] Check what I used with the tool itself...
