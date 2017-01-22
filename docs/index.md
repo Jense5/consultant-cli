@@ -1,6 +1,6 @@
-![consultant](http://i.imgur.com/phhV1uY.png)
+![consultant](http://i.imgur.com/z8UG7SE.png)
 
-# Consultant Tutorial
+# Tutorial
 
 > This document is written for version 1.0, which is **not** yet released.
 
