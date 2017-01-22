@@ -23,9 +23,33 @@ module.exports = (consultant) => {
    * By default, all files are used to generate a template. However, it is possible that you do not
    * want to include some files, based on the option the user has given. The `filter` function makes
    * it possible to pass validators to consultant which make it possible to decide whether or not
-   * to include them based on the provided options.
+   * to include them based on the provided options. The path of these files or folders should be
+   * relative to the root of the template folder (see example).
    */
-  consultant.filter('cst/src', options => options.dotenv);
-  consultant.filter('cst/.env.example', options => options.dotenv);
+  consultant.filter('optionB.js', options => options.B);
+
+  /**
+   * In the end, you can add the list of questions that should be asked before generation the
+   * template. Here is an example with some basic questions. The `input` type asks for a string of
+   * the user, which need to pass the corresponding parameter. The checkbox type gives a list with
+   * options which the user can select. For a full overview of which questions you can ask, please
+   * take a look at https://jense5.github.io/consultant/questions.md, it will only take 5 minutes.
+   * The questions will be asked in the same order you write them.
+   */
+  consultant.ask([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'Your name:',
+      default: 'Jensen',
+      validate: input => input.length > 3 ? true : 'You need at least 4 characters!',
+    },
+    {
+      type: 'checkbox',
+      name: 'modules',
+      message: 'Choose some options:',
+      choices: [ { name: 'optionA', value: 'A' }, { name: 'optionB', value: 'B' } ],
+    },
+  ]);
 
 };
