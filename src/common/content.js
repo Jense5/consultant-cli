@@ -46,7 +46,7 @@ const noBPs = (): string => `
 exports.listBPs = (names: Array<string>): string =>
   (names.length > 0 ? listRawBPs(names) : noBPs());
 
-exports.removedBP = (): string => `
+exports.removedTemplate = (): string => `
   ${chalk.cyan('Ok')}, I removed it! 🤘
 `;
 

@@ -7,7 +7,7 @@ You can always help me with a pull request for one of the following tasks. I hav
 ### Actions
 - [x] Reset
 - [x] List
-- [ ] Remove
+- [x] Remove
 - [ ] Add
 - [ ] Snapshot
 - [ ] Create

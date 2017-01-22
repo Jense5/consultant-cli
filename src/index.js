@@ -86,7 +86,7 @@ if (commander.args.length < 1) {
       list().catch(winston.error);
       break;
     case 'REMOVE':
-      remove(conf.templates, ...commander.args.slice(1));
+      remove(...commander.args.slice(1)).catch(winston.error);
       break;
     case 'SNAPSHOT':
       snapshot(conf.templates, ...commander.args.slice(1));
