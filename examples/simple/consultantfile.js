@@ -38,7 +38,7 @@ module.exports = (consultant) => {
    * take a look at https://jense5.github.io/consultant/questions.md, it will only take 5 minutes.
    * The questions will be asked in the same order you write them.
    */
-  consultant.ask([
+  consultant.questions = [
     {
       type: 'input',
       name: 'name',

@@ -6,10 +6,9 @@ import path from 'path';
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
 
+import utils from '../common/functions';
 import config from '../common/config';
 
-// eslint-disable-next-line no-console
-const info = console.info;
 const fse = Promise.promisifyAll(rfse);
 
 /**
@@ -48,7 +47,7 @@ const create = (name: string, output: string): Promise<> =>
       createBoilerplate(name, output)
       .then(resolve)
       .catch(fail);
-    } else { info('Templates are not supported.'); }
+    } else { utils.info('Templates are not supported.'); }
   });
 
 export default create;
