@@ -10,7 +10,8 @@
         "devDependencies": true
       }
     ],
-    "no-new": "off"
+    "no-new": "off",
+    "import/no-dynamic-require": "off"
   },
   "globals": {
     "describe": true,

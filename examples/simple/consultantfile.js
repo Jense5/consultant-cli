@@ -1,5 +1,5 @@
 
-module.exports = (consultant) => {
+export default (consultant) => {
 
   /**
    * Set the type of a consultant template. This can be a TEMPLATE or a COLLECTION. A COLLECTION
@@ -11,7 +11,6 @@ module.exports = (consultant) => {
   consultant.source = 'cst';
   // REMOVE TEMPLATE?
   // WE CAN BATCH IT?
-  consultant.type = consultant.types.TEMPLATE;
 
   /**
    * Define custom delimiters based on your projects. By default, constultant uses `{{` and `}}`,
@@ -19,7 +18,7 @@ module.exports = (consultant) => {
    * overwrite them based on the current project. In this example `<== X ==>` will be replaced
    * by variable X when the template is created.
    */
-  consultant.delimiters = { start: '<==', end: '==>' };
+  consultant.delimiters = { start: '<<<<', end: '>>>>' };
 
   /**
    * By default, all files are used to generate a template. However, it is possible that you do not
@@ -52,10 +51,10 @@ module.exports = (consultant) => {
       message: 'Choose some options:',
       choices: [ { name: 'optionA', value: 'A' }, { name: 'optionB', value: 'B' } ],
     },
-  ]);
+  ];
 
-  consultant.tutorial = input => `
-    Hey!
+  consultant.introduction = input => `
+    Hey, you are building a sample template!
   `;
 
 };

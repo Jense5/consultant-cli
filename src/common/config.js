@@ -1,10 +1,10 @@
 
 const options = {
   templateDirectory: '/Users/bernard/.cst-templates',
-  configurationFile: 'consultant.config.js',
+  configurationFile: 'consultantfile.js',
   defaultTemplateSource: 'cst',
   defaultDelimiters: { start: '{{', end: '}}' },
-  defaultTutorial: '',
+  defaultIntroduction: '',
 };
 
 export default options;

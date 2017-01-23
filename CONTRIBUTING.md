@@ -21,6 +21,7 @@
 - [ ] Add share button
 - [ ] Gitter Room
 - [ ] Link to this page from README.md
+- [ ] Remove unused dependencies
 
 ### Template (moved to other repo)
 - [ ] Support optional files

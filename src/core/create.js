@@ -1,15 +1,22 @@
 // @flow
 
-// TODO: Finish support for dynamic templates.
-
 import path from 'path';
+import winston from 'winston';
+import chalk from 'chalk';
 import rfse from 'fs-extra';
+import inquirer from 'inquirer';
 import Promise from 'bluebird';
+import klaw from 'klaw';
+import Handlebars from 'handlebars';
+import useDelims from 'handlebars-delimiters';
+import { System } from 'es6-module-loader';
 
 import utils from '../common/functions';
 import config from '../common/config';
+import Template from '../common/template';
 
 const fse = Promise.promisifyAll(rfse);
+
 
 /**
  * Checks if the installed template with given name is a boilerplate are not. For the exact
@@ -32,6 +39,42 @@ const createBoilerplate = (name: string, output: string): Promise<> =>
   fse.ensureDirAsync(output).then(() =>
     fse.copyAsync(path.resolve(config.templateDirectory, name), output));
 
+const readTemplateFilePaths = (template: Template): Promise<Array<string>> =>
+  new Promise((resolve, fail) => {
+    const items = [];
+    klaw(path.resolve(template.root, template.source))
+    .on('data', (item) => { items.push(item.path); })
+    .on('end', () => { resolve(items); })
+    .on('error', (error) => { fail(error); });
+  });
+
+const render = (file: string, options: Object, output: string): Promise<> =>
+  fse.ensureDirAsync(path.dirname(output))
+  .then(() => fse.readFileAsync(file, 'utf8'))
+  .then(data => Handlebars.compile(data)(options))
+  .then(data => fse.writeFileAsync(output, data));
+
+const createTemplate = (name: string, output: string): Promise<> =>
+  new Promise((resolve, fail) => {
+    const cfp = path.resolve(config.templateDirectory, name, config.configurationFile);
+    utils.info(chalk.blue(cfp));
+    System.import(cfp).then((setup) => {
+      const template = new Template(path.resolve(config.templateDirectory, name));
+      setup.default(template);
+      useDelims(Handlebars, [template.delimiters.start, template.delimiters.end]);
+      inquirer.prompt(template.questions)
+      .then((answers) => {
+        utils.info(template.introduction(answers));
+        readTemplateFilePaths(template)
+        .then((files) => {
+          Promise.map(files.filter(file => fse.statSync(file).isFile()), (file) => {
+            render(file, answers, path.resolve(output, path.relative(template.path(), file)));
+          }).then(resolve);
+        });
+      });
+    }).catch(fail);
+  });
+
 /**
  * Creates a new project from the template with given name. The function supposes that the template
  * already exists, so checking making sure this is correct should be done before this function is
@@ -47,7 +90,11 @@ const create = (name: string, output: string): Promise<> =>
       createBoilerplate(name, output)
       .then(resolve)
       .catch(fail);
-    } else { utils.info('Templates are not supported.'); }
+    } else {
+      createTemplate(name, output)
+      .then(resolve)
+      .catch(winston.error);
+    }
   });
 
 export default create;
