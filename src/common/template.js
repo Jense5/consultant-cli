@@ -55,7 +55,7 @@ class Consultant {
 
   shouldRender(file: string): boolean {
     if (!this.filters.has(path.relative(this.path(), file))) { return true; }
-    const checker = this.filters.get(file);
+    const checker = this.filters.get(path.relative(this.path(), file));
     return !!checker && checker(this.input);
   }
 
