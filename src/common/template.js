@@ -4,10 +4,9 @@ import rfse from 'fs-extra';
 import klaw from 'klaw';
 import path from 'path';
 import winston from 'winston';
-import useDelims from 'handlebars-delimiters';
 import { System } from 'es6-module-loader';
 import Promise from 'bluebird';
-import Handlebars from 'handlebars';
+import Mustache from 'mustache';
 import inquirer from 'inquirer';
 
 import type { Filter } from './types';
@@ -73,10 +72,21 @@ class Consultant {
   }
 
   renderFile(file: string, output: string): Promise<> {
+    let predata = 'undefined';
+    let postdata = 'undefined';
     return fse.ensureDirAsync(path.dirname(output))
     .then(() => fse.readFileAsync(file, 'utf8'))
-    .then(data => Handlebars.compile(data)(this.input))
-    .then(data => fse.writeFileAsync(output, data));
+    .then((data) => {
+      predata = data;
+      return Mustache.render(data, this.input);
+    })
+    .then((data) => {
+      postdata = data;
+      return fse.writeFileAsync(output, data);
+    })
+    .then(() => {
+      winston.debug(`Finished ${file} to ${output}...\n${JSON.stringify(this.input)}\n${predata}\nEOF\n${postdata}\nEOF`);
+    });
   }
 
   render(output: string): Promise<> {
@@ -84,7 +94,7 @@ class Consultant {
       winston.debug(`Going to build ${this.path()} into ${output}`);
       System.import(this.configurationPath()).then((setup) => {
         setup.default(this);
-        useDelims(Handlebars, [this.start, this.end]);
+        Mustache.tags = [this.start, this.end];
         utils.info(this.introduction);
         inquirer.prompt(this.questions).then((answers) => {
           this.input = answers;
