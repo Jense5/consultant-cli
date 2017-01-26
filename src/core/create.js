@@ -44,12 +44,14 @@ const createTemplate = (name: string, output: string): Promise<> =>
  */
 const create = (name: string, output: string): Promise<> =>
   new Promise((resolve, fail) => {
+    const absoluteOutputPath = output ? path.resolve(process.cwd(), output) : process.cwd();
     if (isBoilerplate(name)) {
-      createBoilerplate(name, output)
+      createBoilerplate(name, absoluteOutputPath)
       .then(resolve)
       .catch(fail);
     } else {
-      createTemplate(name, output)
+      winston.debug(name, absoluteOutputPath);
+      createTemplate(name, absoluteOutputPath)
       .then(resolve)
       .catch(winston.error);
     }

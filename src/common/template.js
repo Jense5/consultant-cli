@@ -3,6 +3,7 @@
 import rfse from 'fs-extra';
 import klaw from 'klaw';
 import path from 'path';
+import winston from 'winston';
 import useDelims from 'handlebars-delimiters';
 import { System } from 'es6-module-loader';
 import Promise from 'bluebird';
@@ -79,7 +80,8 @@ class Consultant {
   }
 
   render(output: string): Promise<> {
-    new Promise((resolve) => {
+    return new Promise((resolve) => {
+      winston.debug(`Going to build ${this.path()} into ${output}`);
       System.import(this.configurationPath()).then((setup) => {
         setup.default(this);
         useDelims(Handlebars, [this.start, this.end]);
@@ -89,7 +91,7 @@ class Consultant {
           this.readTemplateFilePaths().then((files) => {
             const filtered = files.filter(file => this.shouldRender(file));
             Promise.map(filtered.filter(file => fse.statSync(file).isFile()), (file) => {
-              this.render(file, path.resolve(output, path.relative(this.path(), file)));
+              this.renderFile(file, path.resolve(output, path.relative(this.path(), file)));
             }).then(() => {
               utils.info(this.summary(this.input));
               resolve();
