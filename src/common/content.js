@@ -22,17 +22,6 @@ exports.nevermind = (): string => `
   ${chalk.cyan('Ok')}, nevermind! 👌
 `;
 
-exports.invalidCommand = (): string => `
-  ${chalk.red.bold('Invalid use of Consultant 🤦‍')}
-  No command specified!
-
-  Please use one of the commands below:
-  create - add - remove - snapshot - init - help
-
-  For more information, hit me up on Github or check the documentation:
-  ${chalk.cyan('https://github.com/Jense5/consultant')}
-`;
-
 const listRawBPs = (names: Array<string>): string => `
   ${chalk.cyan('List of installed boilerplates:')}
 
@@ -108,4 +97,17 @@ exports.help = () => `
   ${chalk.cyan('https://jense5.github.io/consultant/thoughts.html')}
 
   Have fun! 🍻
+`;
+
+// AFTER REFACTOR
+
+exports.invalidCommand = (): string => `
+${chalk.red.bold('Invalid use of Consultant 🤦‍')}
+No / invalid command specified!
+
+Please use one of the commands below:
+create - add - remove - snapshot - list - reset - help
+
+For more information, find me on Github or check the documentation:
+${chalk.cyan('https://jense5.github.io/consultant')}
 `;
