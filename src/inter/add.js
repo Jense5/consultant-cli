@@ -5,8 +5,8 @@ import validUrl from 'valid-url';
 import Promise from 'bluebird';
 
 import add from '../core/add';
-import utils from '../common/functions';
-import content from '../common/content';
+import utils from '../utils/functions';
+import content from '../utils/content';
 
 /**
  * Adds the online repository to the local template folder as a template with the given name.

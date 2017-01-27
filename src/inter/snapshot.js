@@ -1,8 +1,8 @@
 // @flow
 
 import add from '../core/add';
-import utils from '../common/functions';
-import content from '../common/content';
+import utils from '../utils/functions';
+import content from '../utils/content';
 
 /**
  * Adds the given current working directory to the templates folder, with the given name.

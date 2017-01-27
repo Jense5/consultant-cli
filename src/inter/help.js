@@ -1,7 +1,7 @@
 // @flow
 
-import utils from '../common/functions';
-import content from '../common/content';
+import utils from '../utils/functions';
+import content from '../utils/content';
 
 /**
  * Displays the help text that is written in the content file.

@@ -8,9 +8,9 @@ import chalk from 'chalk';
 import winston from 'winston';
 import commander from 'commander';
 
-import utils from './common/functions';
-import setup from './common/setup';
-import content from './common/content';
+import utils from './utils/functions';
+import setup from './utils/setup';
+import content from './utils/content';
 
 import add from './inter/add';
 import help from './inter/help';

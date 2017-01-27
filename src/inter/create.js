@@ -3,8 +3,8 @@
 import winston from 'winston';
 
 import create from '../core/create';
-import utils from '../common/functions';
-import content from '../common/content';
+import utils from '../utils/functions';
+import content from '../utils/content';
 
 /**
  * Creates a new project from the template with given name. If a template with the given name does

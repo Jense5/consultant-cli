@@ -4,8 +4,8 @@ import winston from 'winston';
 import inquirer from 'inquirer';
 
 import reset from '../core/reset';
-import utils from '../common/functions';
-import content from '../common/content';
+import utils from '../utils/functions';
+import content from '../utils/content';
 
 /**
  * Creates a list of questions which should be asked to the user when he wants to reset the

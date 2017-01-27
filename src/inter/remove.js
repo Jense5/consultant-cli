@@ -3,8 +3,8 @@
 import winston from 'winston';
 
 import remove from '../core/remove';
-import utils from '../common/functions';
-import content from '../common/content';
+import utils from '../utils/functions';
+import content from '../utils/content';
 
 /**
  * Function to remove the given template. If the given name is invalid, a new one is asked until

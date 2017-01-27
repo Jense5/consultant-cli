@@ -1,8 +1,8 @@
 // @flow
 
 import list from '../core/list';
-import utils from '../common/functions';
-import content from '../common/content';
+import utils from '../utils/functions';
+import content from '../utils/content';
 
 /**
  * Lists all of the names of the templates fetched from the core list action. A specific
