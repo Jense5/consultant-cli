@@ -11,7 +11,8 @@
       }
     ],
     "no-new": "off",
-    "import/no-dynamic-require": "off"
+    "import/no-dynamic-require": "off",
+    "global-require": "off"
   },
   "globals": {
     "describe": true,
