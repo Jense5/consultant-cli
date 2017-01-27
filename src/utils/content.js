@@ -6,7 +6,7 @@ exports.invalidCommand = (): string =>
 `${chalk.red.bold('Invalid use of Consultant 🤦‍')}
 No / invalid command specified!
 Please use one of the commands below:
-create - add - remove - snapshot - list - reset - help
+create - add - batch - snapshot - list - remove - reset - help
 For more information, find me on Github or check the documentation:
 ${chalk.cyan('https://jense5.github.io/consultant')}`;
 
@@ -48,7 +48,7 @@ exports.help = () =>
 If you are new to this tool, I advise you to checkout the quickstart:
 ${chalk.cyan('https://jense5.github.io/consultant')}
 In this version, you can use the following commands:
-create - add - snapshot - list - remove - reset - help
+create - add - batch - snapshot - list - remove - reset - help
 Problems, questions, or just want to share some thoughts? 🤔
 ${chalk.cyan('https://github.com/Jense5/consultant/issues')}
 Have fun! 🍻`;
