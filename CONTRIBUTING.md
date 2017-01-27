@@ -8,7 +8,7 @@
 
 ### CONTRIBUTING
 
-If you would like to contribute, you are welcome to do so. All information about the current version of consultant can be found on the [website](http://jense5.github.io/consultant). I will also publish a roadmap in the future, which might help you to decide to work on a specific part of the tool. Always make clear what you are going to fix by creating an [issue](https://github.com/Jense5/consultant/issues). This way we can first discuss the feature and we can make sure no one is working on the same stuff. Below is a list of tasks that I would like to fix in the near future.
+If you would like to contribute, you are welcome to do so. All information about the current version of consultant can be found on the [website](http://jense5.github.io/consultant). I will also publish a roadmap in the future, which might help you to decide to work on a specific part of the tool. Always make clear what you are going to fix by creating an [issue](https://github.com/Jense5/consultant/issues). This way we can first discuss the feature and we can make sure no one is working on the same stuff. I will use the issues page of this repository to add tasks.
 
 #### Setup
 
@@ -18,7 +18,3 @@ $ cd consultant
 $ yarn install
 $ yarn start -- list
 ```
-
-#### Tasks
-- [ ] Tests
-- [ ] Coverage
