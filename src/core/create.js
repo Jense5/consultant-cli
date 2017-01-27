@@ -27,8 +27,14 @@ const isBoilerplate = (name: string): boolean =>
  * @returns {Promise<>} A promise that will notify when the creation is finished
  */
 const createBoilerplate = (name: string, output: string): Promise<> =>
-  fse.ensureDirAsync(output).then(() =>
-    fse.copyAsync(path.resolve(process.env.templates || '.', name), output));
+  fse.ensureDirAsync(output)
+  .then(() => fse.copyAsync(path.resolve(process.env.templates || '.', name), output))
+  .then(() => {
+    if (process.env.neverRenderGitFolder === 'true'
+        && fse.existsSync(path.resolve(output, '.git'))) {
+      fse.removeSync(path.resolve(output, '.git'));
+    }
+  });
 
 /**
  * Creates a template with given name in the output directory. If the output directory does not

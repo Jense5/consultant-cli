@@ -78,3 +78,7 @@ Ok, ${chalk.cyan('nevermind')}! 👌
 
 exports.templateAlreadyExists = (input: string) => `Template '${input}' already exists! 😕`;
 exports.templateNotInstalled = (input: string) => `Template ${input} not installed! 😕`;
+
+exports.done = () => `
+Done!
+`;

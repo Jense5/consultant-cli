@@ -18,6 +18,7 @@ const createCommand = (name: string, output: string = process.cwd()): Promise<> 
   utils.ensureTemplatesInstalled().then(() => {
     utils.ensureExistingTemplateName(name, 'Which template would you like to use?')
     .then(validated => create(validated, output))
+    .then(() => utils.info(content.done()))
     .catch(winston.error);
   }).catch(() => utils.info(content.listTemplates()));
 
