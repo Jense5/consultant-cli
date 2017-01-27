@@ -1,6 +1,0 @@
-alias cst="node lib"
-alias cl="cst list"
-alias ca="cst add"
-alias cr="cst remove"
-alias cc="cst create"
-alias cs="cst snapshot"
