@@ -27,7 +27,7 @@ const pack = JSON.parse(rfs.readFileSync(pkg, 'utf8'));
 
 // Parse the command line arguments
 commander
-.version(pack.version)
+.version(chalk.bold(`v${pack.version}`))
 .usage('<command> [options]')
 .option('-v, --verbose', 'verbose mode')
 .option('-h, --hard', 'hard reset mode')
@@ -41,7 +41,7 @@ utils.info(chalk.bold(`Consultant ${command}v${pack.version}`));
 // Set the level of winston so it is easy to debug! This winston
 // instance will be used everywhere in the tool.
 if (commander.verbose) { winston.level = 'debug'; }
-winston.debug(chalk.yellow('Processed arguments!'));
+winston.debug(chalk.yellow('Processed arguments'));
 
 // Setup the basic configuration with the setup file. It loads
 // the dotenc configuration and makes sure the necessary files exist.
@@ -57,6 +57,7 @@ if (commander.args.length < 1) {
 
 // Loop through all the possible commands untill the correct one is found.
 // I know, hashmaps are O(1) and this is O(n), but I don't care for 7 items.
+winston.debug('Starting to call commands');
 switch (commander.args[0].toUpperCase()) {
   case 'HELP': help(); break;
   case 'LIST': list(); break;

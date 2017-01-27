@@ -31,9 +31,10 @@ export default () => {
   require('dotenv').config({ path: CONF });
   process.env.templates = untildify(process.env.templates);
   fse.ensureDirSync(process.env.templates || '.');
-  winston.debug(`Setup ${chalk.green('success')}!`);
-  winston.debug(`Using ${chalk.blue(process.env.templates)} as templates folder.`);
-  winston.debug(`Default template configuration file is ${chalk.blue(process.env.configurationFile)}.`);
-  winston.debug(`Default template source folder is ${chalk.blue(process.env.defaultTemplateSource)}.`);
-  winston.debug(`Default delimiters are ${chalk.blue(process.env.defaultStart)} and ${chalk.blue(process.env.defaultEnd)}.`);
+  winston.debug(chalk.green('Setup completed'));
+  winston.debug(`Used configuration: ${chalk.blue(CONF)}`);
+  winston.debug(`Default templates folder: ${chalk.magenta(process.env.templates)}`);
+  winston.debug(`Default configuration file: ${chalk.yellow(process.env.configurationFile)}`);
+  winston.debug(`Default source folder: ${chalk.green(process.env.defaultTemplateSource)}`);
+  winston.debug(`Default delimiters: ${chalk.cyan(process.env.defaultStart)} & ${chalk.cyan(process.env.defaultEnd)}`);
 };
