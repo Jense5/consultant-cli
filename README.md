@@ -28,4 +28,3 @@ $ cst add /path/to/template template-name
 # Generate the new template in the current folder!
 $ cst create template-name
 ```
-### Happy coding! 🎉
