@@ -12,7 +12,7 @@ import content from '../utils/content';
 const snapshotCommand = (name: string): Promise<> =>
   utils.ensureNonExistingTemplateName(name, 'How would you like to call the template?')
   .then((validated) => {
-    utils.info(content.startCopy());
+    utils.info(content.startCopy(process.cwd()));
     return add.local(process.cwd(), validated)
     .then(() => utils.info(content.installedTemplate(validated)));
   }).catch(() => utils.info(content.unableToCopy()));

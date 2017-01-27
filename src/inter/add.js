@@ -17,13 +17,11 @@ import content from '../utils/content';
  */
 const addOnline = (uri: string, validated: string): Promise<> =>
   new Promise((resolve) => {
-    utils.info(content.startClone());
+    utils.info(content.startClone(uri));
     add.online(uri, validated).then(() => {
       utils.info(content.installedTemplate(validated));
       resolve();
-    }).catch(() => {
-      utils.info(content.unableToClone());
-    });
+    }).catch(() => { utils.info(content.unableToClone()); });
   });
 
 /**
@@ -35,7 +33,7 @@ const addOnline = (uri: string, validated: string): Promise<> =>
  */
 const addLocal = (uri: string, validated: string): Promise<> =>
   new Promise((resolve) => {
-    utils.info(content.startCopy());
+    utils.info(content.startCopy(uri));
     add.local(path.resolve(process.cwd(), uri), validated).then(() => {
       utils.info(content.installedTemplate(validated));
       resolve();

@@ -12,12 +12,16 @@ import content from '../utils/content';
  * @param {string} name The name that is provided by the user
  * @returns {Promise<>} A promise which will notify when the remove is finished
  */
-const removeCommand = (name: string): Promise<> =>
-  utils.ensureTemplatesInstalled().then(() => {
+const removeCommand = (name: string): Promise<> => {
+  let temp = name;
+  return utils.ensureTemplatesInstalled().then(() => {
     utils.ensureExistingTemplateName(name, 'Which template would you like to remove?')
-    .then(validated => remove(validated))
-    .then(() => utils.info(content.removedTemplate()))
+    .then((validated) => {
+      temp = validated;
+      return remove(validated);
+    }).then(() => utils.info(content.removedTemplate(temp)))
     .catch(winston.error);
   }).catch(() => utils.info(content.listTemplates()));
+};
 
 export default removeCommand;

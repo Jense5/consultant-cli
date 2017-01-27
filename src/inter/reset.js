@@ -23,18 +23,24 @@ const confirmation = (): Array<Object> => ([{
 /**
  * This function is the callback when the user calls the `reset` command. If this is the case, the
  * questions of `confirmation()` should be asked in order to make sure that the user wants to reset
- * the boilerplates. Only reset if this is the case! Returns a promise without parameters.
+ * the boilerplates. Only reset if this is the case! Returns a promise without parameters. If the
+ * hard boolean is true, then there will be no interaction with the user.
  * @returns {Promise<>} A promise which will notify when the reset is finished
  */
-const resetCommand = (): Promise<> =>
-  inquirer.prompt(confirmation()).then((user) => {
-    if (user.sure) {
-      reset()
-      .then(() => utils.info(content.removeSuccess()))
-      .catch(winston.error);
-    } else {
-      utils.info(content.nevermind());
-    }
-  });
+const resetCommand = (hard: boolean): Promise<> => {
+  if (!hard) {
+    return inquirer.prompt(confirmation()).then((user) => {
+      if (user.sure) {
+        reset()
+        .then(() => utils.info(content.resetSuccess()))
+        .catch(winston.error);
+      } else { utils.info(content.nevermind()); }
+    });
+  }
+  return reset()
+  .then(() => utils.info(content.resetSuccess()))
+  .catch(winston.error);
+};
+
 
 export default resetCommand;

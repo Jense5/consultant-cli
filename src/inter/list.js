@@ -9,6 +9,6 @@ import content from '../utils/content';
  * message will be shown if there are no templates.
  * @returns {Promise<>} A promise which will notify when the list is finished
  */
-const listCommand = (): Promise<> => list().then(n => utils.info(content.listBPs(n)));
+const listCommand = (): Promise<> => list().then(n => utils.info(content.listTemplates(n)));
 
 export default listCommand;
