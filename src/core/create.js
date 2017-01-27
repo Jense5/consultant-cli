@@ -4,7 +4,7 @@ import path from 'path';
 import winston from 'winston';
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
-import Template from '../common/template';
+import Template from './template';
 
 const fse = Promise.promisifyAll(rfse);
 
