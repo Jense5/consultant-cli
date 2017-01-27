@@ -1,19 +1,24 @@
 // @flow
 
-import rfse from 'fs-extra';
 import klaw from 'klaw';
 import path from 'path';
+import chalk from 'chalk';
+import rfse from 'fs-extra';
 import winston from 'winston';
-import { System } from 'es6-module-loader';
 import Promise from 'bluebird';
 import Mustache from 'mustache';
 import inquirer from 'inquirer';
+import { System } from 'es6-module-loader';
 
 import utils from '../utils/utils';
 
 const fse = Promise.promisifyAll(rfse);
 
-class Consultant {
+/**
+ * This class represents a template, which will be able to render to some output location.
+ * All the data and render processes are stored in this instance.
+ */
+class Template {
 
   filters: Map<string, (options: Object) => boolean>;
   source: string;
@@ -40,27 +45,36 @@ class Consultant {
   }
 
   ask(qs: Array<Object> = []): void { this.questions = qs; }
-  setIntroduction(intro: string = ''): void { this.introduction = intro; }
-  setSummary(summary: (input: Object) => string = () => ''): void { this.summary = summary; }
-
   setInput(input: Object = {}): void { this.input = input; }
-  setSourceFolder(source: string = process.env.defaultTemplateSource = 'template'): void { this.source = source; }
+  setIntroduction(intro: string = ''): void { this.introduction = intro; }
   setEnd(end: string = process.env.defaultEnd || '}}'): void { this.end = end; }
   setStart(start: string = process.env.defaultStart || '{{'): void { this.start = start; }
+  setSummary(summary: (input: Object) => string = () => ''): void { this.summary = summary; }
+  setSourceFolder(source: string = process.env.defaultTemplateSource = 'template'): void { this.source = source; }
 
   path(): string { return path.resolve(this.root, this.source); }
-  filter(file: string, filter: (options: Object) => boolean): void {
-    this.filters.set(file, filter);
-  }
+  filter(f: string, fl: (options: Object) => boolean): void { this.filters.set(f, fl); }
+  configurationPath(): string { return path.resolve(this.root, process.env.configurationFile || ''); }
 
+  /**
+   * Checks whether or not the given file should be rendered. This is done by checking wether or
+   * or not this file is in the filters hashmap. If it is not, it will definetely be rendered. If
+   * it is, it will be rendered if the corresponding filter function returns true, based on the
+   * current input.
+   * @param {string} file The file location that should be checked
+   * @returns {boolean} True if and only if the file should be rendered
+   */
   shouldRender(file: string): boolean {
     if (!this.filters.has(path.relative(this.path(), file))) { return true; }
     const checker = this.filters.get(path.relative(this.path(), file));
     return !!checker && checker(this.input);
   }
 
-  configurationPath(): string { return path.resolve(this.root, process.env.configurationFile || ''); }
-
+  /**
+   * Returns a promise containing all the static file paths of all the children (recursive) of
+   * this templates' path. The path that will be checked is the this.path() path.
+   * @returns {Promise<Array<string>>} A promise with the list of files
+   */
   readTemplateFilePaths(): Promise<Array<string>> {
     return new Promise((resolve, fail) => {
       const items = [];
@@ -71,27 +85,28 @@ class Consultant {
     });
   }
 
+  /**
+   * Renders the given file to the given output location. Returns promise which notifies when done.
+   * @param {string} file The absolute file path of the file to render
+   * @param {string} output The absolute file path of the output file
+   * @returns {Promise<>} A promise to notify when done
+   */
   renderFile(file: string, output: string): Promise<> {
-    let predata = 'undefined';
-    let postdata = 'undefined';
     return fse.ensureDirAsync(path.dirname(output))
     .then(() => fse.readFileAsync(file, 'utf8'))
-    .then((data) => {
-      predata = data;
-      return Mustache.render(data, this.input);
-    })
-    .then((data) => {
-      postdata = data;
-      return fse.writeFileAsync(output, data);
-    })
-    .then(() => {
-      winston.debug(`Finished ${file} to ${output}...\n${JSON.stringify(this.input)}\n${predata}\nEOF\n${postdata}\nEOF`);
-    });
+    .then(data => Mustache.render(data, this.input))
+    .then(data => fse.writeFileAsync(output, data))
+    .then(() => winston.debug(`Rendered ${chalk.yellow(file)} in ${chalk.cyan(output)}`));
   }
 
+  /**
+   * Renders this template, with all the data that is setup. It will print the introduction, ask
+   * for parameters, render all the files needed and print a summary.
+   * @param {string} output The output directory for the generated template
+   * @returns {Promise<>} A promise to notify when done
+   */
   render(output: string): Promise<> {
     return new Promise((resolve) => {
-      winston.debug(`Going to build ${this.path()} into ${output}`);
       System.import(this.configurationPath()).then((setup) => {
         setup.default(this);
         Mustache.tags = [this.start, this.end];
@@ -114,4 +129,4 @@ class Consultant {
 
 }
 
-module.exports = Consultant;
+module.exports = Template;

@@ -1,6 +1,7 @@
 // @flow
 
 import path from 'path';
+import chalk from 'chalk';
 import winston from 'winston';
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
@@ -20,7 +21,7 @@ const isBoilerplate = (name: string): boolean =>
 /**
  * Creates a boilerplate with given name in the output directory. If the output directory does not
  * exist, it will be created. The boilerplate with given name should exist, as it is not being
- * checked here. Do never pass the name of a template that does not exist!
+ * checked here. Do never pass the name of a boilerplate that does not exist!
  * @param {string} name The name of the boilerplate to create
  * @param {string} output The output location of the boilerplate
  * @returns {Promise<>} A promise that will notify when the creation is finished
@@ -29,8 +30,17 @@ const createBoilerplate = (name: string, output: string): Promise<> =>
   fse.ensureDirAsync(output).then(() =>
     fse.copyAsync(path.resolve(process.env.templates || '.', name), output));
 
+/**
+ * Creates a template with given name in the output directory. If the output directory does not
+ * exist, it will be created. The template with given name should exist, as it is not being
+ * checked here. Do never pass the name of a template that does not exist!
+ * @param {string} name The name of the template to create
+ * @param {string} output The output location of the template
+ * @returns {Promise<>} A promise that will notify when the creation is finished
+ */
 const createTemplate = (name: string, output: string): Promise<> =>
-  new Template(path.resolve(process.env.templates || '.', name)).render(output);
+  fse.ensureDirAsync(output).then(() =>
+    new Template(path.resolve(process.env.templates || '.', name)).render(output));
 
 /**
  * Creates a new project from the template with given name. The function supposes that the template
@@ -43,16 +53,15 @@ const createTemplate = (name: string, output: string): Promise<> =>
  */
 const create = (name: string, output: string): Promise<> =>
   new Promise((resolve, fail) => {
+    winston.debug(`Command ${chalk.yellow('CREATE')} called for ${chalk.cyan(name)} and ${chalk.cyan(output)}`);
     const absoluteOutputPath = output ? path.resolve(process.cwd(), output) : process.cwd();
+    winston.debug(`Using output path: ${chalk.magenta(absoluteOutputPath)}`);
     if (isBoilerplate(name)) {
-      createBoilerplate(name, absoluteOutputPath)
-      .then(resolve)
-      .catch(fail);
+      winston.debug(`Detected boilerplate ${chalk.green(name)}`);
+      createBoilerplate(name, absoluteOutputPath).then(resolve).catch(fail);
     } else {
-      winston.debug(name, absoluteOutputPath);
-      createTemplate(name, absoluteOutputPath)
-      .then(resolve)
-      .catch(winston.error);
+      winston.debug(`Detected template ${chalk.green(name)}`);
+      createTemplate(name, absoluteOutputPath).then(resolve).catch(fail);
     }
   });
 
