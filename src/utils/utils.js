@@ -3,8 +3,8 @@
 import _ from 'lodash';
 import inquirer from 'inquirer';
 
-import content from './content';
 import list from '../core/list';
+import content from './content';
 
 // eslint-disable-next-line no-console
 const info = console.info;
