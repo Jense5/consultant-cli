@@ -8,7 +8,7 @@
     "consultant-cli"
   ],
   "main": "lib/index.js",
-  "license": "MIT",
+  "license": "BSD",
   "bin": {
     "consultant": "./lib/index.js",
     "cst": "./lib/index.js"
