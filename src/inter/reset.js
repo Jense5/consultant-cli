@@ -4,7 +4,6 @@ import winston from 'winston';
 import inquirer from 'inquirer';
 
 import reset from '../core/reset';
-import config from '../common/config';
 import utils from '../common/functions';
 import content from '../common/content';
 
@@ -17,7 +16,7 @@ import content from '../common/content';
 const confirmation = (): Array<Object> => ([{
   type: 'confirm',
   name: 'sure',
-  message: `Sure you want to clear ${config.templateDirectory}?`,
+  message: `Sure you want to clear ${process.env.templates || '.'}?`,
   default: false,
 }]);
 

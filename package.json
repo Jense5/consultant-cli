@@ -17,7 +17,7 @@
     "lint": "eslint src test",
     "start": "./lib/index.js",
     "test": "mocha --compilers js:babel-core/register",
-    "build": "babel src -d lib && chmod +x lib/index.js",
+    "build": "babel src -d lib --copy-files && chmod +x lib/index.js",
     "prepublish": "npm run lint && npm run test && npm run clear && npm run build"
   },
   "dependencies": {

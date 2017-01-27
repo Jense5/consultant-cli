@@ -10,7 +10,6 @@ import Mustache from 'mustache';
 import inquirer from 'inquirer';
 
 import type { Filter } from './types';
-import config from './config';
 import utils from './functions';
 
 const fse = Promise.promisifyAll(rfse);
@@ -45,10 +44,10 @@ class Consultant {
   setIntroduction(intro: string = ''): void { this.introduction = intro; }
   setSummary(summary: (input: Object) => string = () => ''): void { this.summary = summary; }
 
-  setEnd(end: string = '}}'): void { this.end = end; }
   setInput(input: Object = {}): void { this.input = input; }
-  setStart(start: string = '{{'): void { this.start = start; }
-  setSourceFolder(source: string = 'template'): void { this.source = source; }
+  setSourceFolder(source: string = process.env.defaultTemplateSource = 'template'): void { this.source = source; }
+  setEnd(end: string = process.env.defaultEnd || '}}'): void { this.end = end; }
+  setStart(start: string = process.env.defaultStart || '{{'): void { this.start = start; }
 
   path(): string { return path.resolve(this.root, this.source); }
   filter(file: string, filter: Filter): void { this.filters.set(file, filter); }
@@ -59,7 +58,7 @@ class Consultant {
     return !!checker && checker(this.input);
   }
 
-  configurationPath(): string { return path.resolve(this.root, config.configurationFile); }
+  configurationPath(): string { return path.resolve(this.root, process.env.configurationFile || ''); }
 
   readTemplateFilePaths(): Promise<Array<string>> {
     return new Promise((resolve, fail) => {

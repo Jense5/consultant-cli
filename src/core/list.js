@@ -4,8 +4,6 @@ import path from 'path';
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
 
-import config from '../common/config';
-
 const fse = Promise.promisifyAll(rfse);
 
 /**
@@ -15,8 +13,8 @@ const fse = Promise.promisifyAll(rfse);
  */
 const list = (): Promise<Array<string>> =>
   new Promise((resolve) => {
-    fse.readdirAsync(config.templateDirectory).then((files) => {
-      const abspaths = files.map(file => path.resolve(config.templateDirectory, file));
+    fse.readdirAsync(process.env.templates || '.').then((files) => {
+      const abspaths = files.map(file => path.resolve(process.env.templates || '.', file));
       Promise.map(abspaths, ap => fse.statAsync(ap)).then((results) => {
         const data = results.map((v, i) => ({ k: abspaths[i], v: v.isDirectory() }));
         const dirs = data.filter(e => e.v).map(e => path.basename(e.k));

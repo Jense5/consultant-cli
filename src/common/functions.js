@@ -3,7 +3,6 @@
 import _ from 'lodash';
 import inquirer from 'inquirer';
 
-import config from './config';
 import content from './content';
 import list from '../core/list';
 
@@ -18,7 +17,7 @@ exports.info = info;
  */
 exports.ensureTemplatesInstalled = (): Promise<> =>
   new Promise((resolve, fail) => {
-    list(config.templateDirectory).then((names) => {
+    list(process.env.templates || '.').then((names) => {
       if (names.length < 1) { fail(); }
       if (names.length > 0) { resolve(); }
     });
@@ -71,7 +70,7 @@ const askForTemplate = (message: string, names: Array<string>, existing: boolean
  */
 const ensureTemplateName = (name: string, message: string, existing: boolean): Promise<string> =>
   new Promise((resolve) => {
-    list(config.templateDirectory).then((names) => {
+    list(process.env.templates || '.').then((names) => {
       const incl = _.includes(names, name);
       if (!name || ((incl || existing) && !(incl && existing))) {
         info(content.listTemplates(names));

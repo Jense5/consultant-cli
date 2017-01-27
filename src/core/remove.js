@@ -4,8 +4,6 @@ import path from 'path';
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
 
-import config from '../common/config';
-
 const fse = Promise.promisifyAll(rfse);
 
 /**
@@ -15,6 +13,6 @@ const fse = Promise.promisifyAll(rfse);
  * @returns {Promise<>} A promise when the remove action is finished
  */
 const remove = (name: string): Promise<> =>
-  fse.removeAsync(path.resolve(config.templateDirectory, name));
+  fse.removeAsync(path.resolve(process.env.templates || '.', name));
 
 export default remove;

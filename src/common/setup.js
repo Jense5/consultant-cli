@@ -1,6 +1,9 @@
 // @flow
 
+import path from 'path';
+import chalk from 'chalk';
 import fse from 'fs-extra';
+import winston from 'winston';
 import untildify from 'untildify';
 
 const CONF = untildify('~/.consultant');
@@ -16,7 +19,7 @@ const doesConfExist = () => fse.existsSync(CONF);
  * the config file of consultant. This should only be done to reset or to
  * create a new configuration file.
  */
-const createConf = () => fse.copySync('./default.env', CONF);
+const createConf = () => fse.copySync(path.resolve(__dirname, './default.env'), CONF);
 
 /**
  * Creates a default configuration file if none exists. When one exists,
@@ -27,4 +30,10 @@ export default () => {
   if (!doesConfExist()) { createConf(); }
   require('dotenv').config({ path: CONF });
   process.env.templates = untildify(process.env.templates);
+  fse.ensureDirSync(process.env.templates || '.');
+  winston.debug(`Setup ${chalk.green('success')}!`);
+  winston.debug(`Using ${chalk.blue(process.env.templates)} as templates folder.`);
+  winston.debug(`Default template configuration file is ${chalk.blue(process.env.configurationFile)}.`);
+  winston.debug(`Default template source folder is ${chalk.blue(process.env.defaultTemplateSource)}.`);
+  winston.debug(`Default delimiters are ${chalk.blue(process.env.defaultStart)} and ${chalk.blue(process.env.defaultEnd)}.`);
 };

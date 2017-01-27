@@ -3,8 +3,6 @@
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
 
-import config from '../common/config';
-
 const fse = Promise.promisifyAll(rfse);
 
 /**
@@ -13,6 +11,6 @@ const fse = Promise.promisifyAll(rfse);
  * subfolders with rm -rf.
  * @returns {Promise<>} A promise when the process will be ready
  */
-const resetBoilerplates = (): Promise<> => fse.emptyDirAsync(config.templateDirectory);
+const resetBoilerplates = (): Promise<> => fse.emptyDirAsync(process.env.templates || '.');
 
 export default resetBoilerplates;

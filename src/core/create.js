@@ -4,7 +4,6 @@ import path from 'path';
 import winston from 'winston';
 import rfse from 'fs-extra';
 import Promise from 'bluebird';
-import config from '../common/config';
 import Template from '../common/template';
 
 const fse = Promise.promisifyAll(rfse);
@@ -16,7 +15,7 @@ const fse = Promise.promisifyAll(rfse);
  * @returns {boolean} True if and only if the template with given name is a boilerplate
  */
 const isBoilerplate = (name: string): boolean =>
-  !!name && !fse.existsSync(path.resolve(config.templateDirectory, name, config.configurationFile));
+  !!name && !fse.existsSync(path.resolve(process.env.templates || '.', name, process.env.configurationFile || ''));
 
 /**
  * Creates a boilerplate with given name in the output directory. If the output directory does not
@@ -28,10 +27,10 @@ const isBoilerplate = (name: string): boolean =>
  */
 const createBoilerplate = (name: string, output: string): Promise<> =>
   fse.ensureDirAsync(output).then(() =>
-    fse.copyAsync(path.resolve(config.templateDirectory, name), output));
+    fse.copyAsync(path.resolve(process.env.templates || '.', name), output));
 
 const createTemplate = (name: string, output: string): Promise<> =>
-  new Template(path.resolve(config.templateDirectory, name)).render(output);
+  new Template(path.resolve(process.env.templates || '.', name)).render(output);
 
 /**
  * Creates a new project from the template with given name. The function supposes that the template

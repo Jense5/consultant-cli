@@ -5,8 +5,6 @@ import rfse from 'fs-extra';
 import Promise from 'bluebird';
 import { exec } from 'child_process';
 
-import config from '../common/config';
-
 const fse = Promise.promisifyAll(rfse);
 const execute = Promise.promisify(exec);
 
@@ -18,7 +16,7 @@ const execute = Promise.promisify(exec);
  * @returns {Promise<>} Which finishes when the copying is done
  */
 const local = (folder: string, name: string): Promise<> =>
-  fse.copyAsync(folder, path.resolve(config.templateDirectory, name));
+  fse.copyAsync(folder, path.resolve(process.env.templates || '.', name));
 
 /**
  * Generates the command to be executed in order to download an online repository.
@@ -27,7 +25,7 @@ const local = (folder: string, name: string): Promise<> =>
  * @returns {string} The command to be executed
  */
 const cmd = (uri: string, name: string): string =>
-  `git clone ${uri} ${path.resolve(config.templateDirectory, name)}`;
+  `git clone ${uri} ${path.resolve(process.env.templates || '.', name)}`;
 
 /**
  * Clones the git repository at the given uri to the given local location.
