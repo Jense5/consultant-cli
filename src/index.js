@@ -53,17 +53,19 @@ setup();
 if (commander.args.length < 1) {
   utils.info(content.invalidCommand());
   process.exit();
-} else {
-  switch (commander.args[0].toUpperCase()) {
-    case 'HELP': help(); break;
-    case 'LIST': list(); break;
-    case 'RESET': reset(commander.hard); break;
-    case 'ADD': add(...commander.args.slice(1)); break;
-    case 'CREATE': create(...commander.args.slice(1)); break;
-    case 'REMOVE': remove(...commander.args.slice(1)); break;
-    case 'SNAPSHOT': snapshot(...commander.args.slice(1)); break;
-    default:
-      utils.info(content.invalidCommand());
-      process.exit();
-  }
+}
+
+// Loop through all the possible commands untill the correct one is found.
+// I know, hashmaps are O(1) and this is O(n), but I don't care for 7 items.
+switch (commander.args[0].toUpperCase()) {
+  case 'HELP': help(); break;
+  case 'LIST': list(); break;
+  case 'RESET': reset(commander.hard); break;
+  case 'ADD': add(...commander.args.slice(1)); break;
+  case 'CREATE': create(...commander.args.slice(1)); break;
+  case 'REMOVE': remove(...commander.args.slice(1)); break;
+  case 'SNAPSHOT': snapshot(...commander.args.slice(1)); break;
+  default:
+    utils.info(content.invalidCommand());
+    process.exit();
 }
