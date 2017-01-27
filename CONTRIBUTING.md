@@ -16,5 +16,6 @@ If you would like to contribute, you are welcome to do so. All information about
 $ git clone https://github.com/Jense5/consultant.git
 $ cd consultant
 $ yarn install
+$ yarn prepublish
 $ yarn start -- list
 ```
