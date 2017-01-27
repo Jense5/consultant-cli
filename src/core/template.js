@@ -56,6 +56,15 @@ class Template {
   filter(f: string, fl: (options: Object) => boolean): void { this.filters.set(f, fl); }
   configurationPath(): string { return path.resolve(this.root, process.env.configurationFile || ''); }
 
+  ignore(f: string): void { this.filters.set(f, () => false); }
+  ignoreRecursive(f: string): void {
+    const location = path.resolve(this.path(), f);
+    Template.readFilePaths(location).then((data) => {
+      data.map(file => path.relative(this.path(), file))
+      .map(file => this.ignore(file));
+    });
+  }
+
   /**
    * Checks whether or not the given file should be rendered. This is done by checking wether or
    * or not this file is in the filters hashmap. If it is not, it will definetely be rendered. If
@@ -71,19 +80,11 @@ class Template {
   }
 
   /**
-   * Returns a promise containing all the static file paths of all the children (recursive) of
+   * Returns a promise containing all the absolute file paths of all the children (recursive) of
    * this templates' path. The path that will be checked is the this.path() path.
    * @returns {Promise<Array<string>>} A promise with the list of files
    */
-  readTemplateFilePaths(): Promise<Array<string>> {
-    return new Promise((resolve, fail) => {
-      const items = [];
-      klaw(this.path())
-      .on('data', (item) => { items.push(item.path); })
-      .on('end', () => { resolve(items); })
-      .on('error', (error) => { fail(error); });
-    });
-  }
+  readTemplateFilePaths(): Promise<Array<string>> { return Template.readFilePaths(this.path()); }
 
   /**
    * Renders the given file to the given output location. Returns promise which notifies when done.
@@ -124,6 +125,22 @@ class Template {
           });
         });
       });
+    });
+  }
+
+  /**
+   * Returns a promise containing all the absolute file paths of all the children (recursive) of
+   * the given path. The path that will be checked is the provided location parameter.
+   * @param {string} location The location of the directory to check
+   * @returns {Promise<Array<string>>} A promise with the list of files
+   */
+  static readFilePaths(location: string = '.'): Promise<Array<string>> {
+    return new Promise((resolve, fail) => {
+      const items = [];
+      klaw(location)
+      .on('data', (item) => { items.push(item.path); })
+      .on('end', () => { resolve(items); })
+      .on('error', (error) => { fail(error); });
     });
   }
 
