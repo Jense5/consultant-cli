@@ -52,7 +52,7 @@ const addLocal = (uri: string, validated: string): Promise<> =>
 const addCommand = (uri: string, name: string): Promise<> =>
   new Promise((resolve) => {
     if (uri) {
-      utils.ensureNonExistingTemplateName(name, 'How would you like to call the template?')
+      utils.ensureNonExistingTemplateName(name, 'How would you like to call the template?', uri)
       .then((validated) => {
         if (validUrl.isWebUri(uri)) { addOnline(uri, validated).then(resolve); }
         if (!validUrl.isWebUri(uri)) { addLocal(uri, validated).then(resolve); }

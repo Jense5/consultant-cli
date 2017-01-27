@@ -79,6 +79,9 @@ Ok, ${chalk.cyan('nevermind')}! 👌
 exports.templateAlreadyExists = (input: string) => `Template '${input}' already exists! 😕`;
 exports.templateNotInstalled = (input: string) => `Template ${input} not installed! 😕`;
 
+exports.resolveFor = (o: string) =>
+`Please resolve naming conflict for ${chalk.red(o)}...`;
+
 exports.done = () => `
 Done!
 `;

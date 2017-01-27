@@ -64,17 +64,18 @@ const askForTemplate = (message: string, names: Array<string>, existing: boolean
  * If this one is true, then the input should be an existing name of a template. If it is false,
  * it will should be a non existing name.
  * @param {name} name The already provided input of the user (undefined if none)
- * @param {string} message The message to appear as the question
- * @param {boolean} existing Boolean representing whether or not the user should choose an existing
- *                           name or a new name.
+ * @param {string} msg The message to appear as the question
+ * @param {boolean} exc Boolean representing whether or not the user should choose an existing
+ *                      name or a new name.
  */
-const ensureTemplateName = (name: string, message: string, existing: boolean): Promise<string> =>
+const ensureTemplateName = (name: string, msg: string, exc: boolean, o:?string): Promise<string> =>
   new Promise((resolve) => {
     list(process.env.templates || '.').then((names) => {
       const incl = _.includes(names, name);
-      if (!name || ((incl || existing) && !(incl && existing))) {
+      if (!name || ((incl || exc) && !(incl && exc))) {
         info(content.listTemplates(names));
-        inquirer.prompt(askForTemplate(message, names, existing))
+        if (o) { info(content.resolveFor(o)); }
+        inquirer.prompt(askForTemplate(msg, names, exc))
         .then(answer => resolve(answer.name));
       } else { resolve(name); }
     });
@@ -88,8 +89,8 @@ const ensureTemplateName = (name: string, message: string, existing: boolean): P
  * @param {name} name The already provided input of the user (undefined if none)
  * @param {string} message The message to appear as the question
  */
-exports.ensureExistingTemplateName = (name: string, message: string): Promise<string> =>
-  ensureTemplateName(name, message, true);
+exports.ensureExistingTemplateName = (name: string, msg: string, o:?string): Promise<string> =>
+  ensureTemplateName(name, msg, true, o);
 
 /**
  * Returns a promise with the name that the user enters. This name will always be valid as this
@@ -99,5 +100,5 @@ exports.ensureExistingTemplateName = (name: string, message: string): Promise<st
  * @param {name} name The already provided input of the user (undefined if none)
  * @param {string} message The message to appear as the question
  */
-exports.ensureNonExistingTemplateName = (name: string, message: string): Promise<string> =>
-  ensureTemplateName(name, message, false);
+exports.ensureNonExistingTemplateName = (name: string, msg: string, o:?string): Promise<string> =>
+  ensureTemplateName(name, msg, false, o);
