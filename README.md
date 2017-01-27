@@ -1,4 +1,5 @@
-![consultant](http://i.imgur.com/phhV1uY.png)
+![consultant](http://i.imgur.com/z8UG7SE.png)
+# Consultant
 
 <img src="https://img.shields.io/badge/status-beta-16a085.svg">
 <img src="https://travis-ci.org/Jense5/consultant.svg?branch=master">
