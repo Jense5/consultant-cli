@@ -2,8 +2,8 @@
 
 import winston from 'winston';
 
+import utils from '../utils/utils';
 import remove from '../core/remove';
-import utils from '../utils/functions';
 import content from '../utils/content';
 
 /**

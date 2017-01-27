@@ -1,7 +1,7 @@
 // @flow
 
 import list from '../core/list';
-import utils from '../utils/functions';
+import utils from '../utils/utils';
 import content from '../utils/content';
 
 /**

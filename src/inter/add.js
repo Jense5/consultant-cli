@@ -5,7 +5,7 @@ import validUrl from 'valid-url';
 import Promise from 'bluebird';
 
 import add from '../core/add';
-import utils from '../utils/functions';
+import utils from '../utils/utils';
 import content from '../utils/content';
 
 /**

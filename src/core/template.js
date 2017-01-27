@@ -9,7 +9,7 @@ import Promise from 'bluebird';
 import Mustache from 'mustache';
 import inquirer from 'inquirer';
 
-import utils from '../utils/functions';
+import utils from '../utils/utils';
 
 const fse = Promise.promisifyAll(rfse);
 

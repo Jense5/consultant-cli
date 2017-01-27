@@ -4,7 +4,7 @@ import winston from 'winston';
 import inquirer from 'inquirer';
 
 import reset from '../core/reset';
-import utils from '../utils/functions';
+import utils from '../utils/utils';
 import content from '../utils/content';
 
 /**

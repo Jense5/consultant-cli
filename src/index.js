@@ -8,7 +8,7 @@ import chalk from 'chalk';
 import winston from 'winston';
 import commander from 'commander';
 
-import utils from './utils/functions';
+import utils from './utils/utils';
 import setup from './utils/setup';
 import content from './utils/content';
 
