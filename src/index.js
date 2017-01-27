@@ -15,6 +15,7 @@ import content from './utils/content';
 import add from './inter/add';
 import help from './inter/help';
 import list from './inter/list';
+import batch from './inter/batch';
 import reset from './inter/reset';
 import remove from './inter/remove';
 import create from './inter/create';
@@ -63,6 +64,7 @@ switch (commander.args[0].toUpperCase()) {
   case 'LIST': list(); break;
   case 'RESET': reset(commander.hard); break;
   case 'ADD': add(...commander.args.slice(1)); break;
+  case 'BATCH': batch(...commander.args.slice(1)); break;
   case 'CREATE': create(...commander.args.slice(1)); break;
   case 'REMOVE': remove(...commander.args.slice(1)); break;
   case 'SNAPSHOT': snapshot(...commander.args.slice(1)); break;

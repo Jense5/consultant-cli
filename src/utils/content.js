@@ -13,6 +13,9 @@ For more information, find me on Github or check the documentation:
 ${chalk.cyan('https://jense5.github.io/consultant')}
 `;
 
+exports.startBatch = (uri: string) => `
+Starting batch for ${chalk.cyan(uri)}.`;
+
 exports.startClone = (url: string): string => `
 Starting to clone ${chalk.magenta(url)}.`;
 
@@ -81,6 +84,10 @@ exports.templateNotInstalled = (input: string) => `Template ${input} not install
 
 exports.resolveFor = (o: string) =>
 `Please resolve naming conflict for ${chalk.red(o)}...`;
+
+exports.invalidBatch = () => `
+${chalk.red('Batch does not exist or is invalid!')} 😕
+`;
 
 exports.done = () => `
 Done!
