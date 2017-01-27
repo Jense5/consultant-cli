@@ -6,9 +6,10 @@
   <img src="https://img.shields.io/npm/l/consultant-cli.svg">
 </p>
 
-A simple, dynamic and language-independent template generator which can generate about any project
-for you. Check the [website](http://jense5.github.io/consultant) to get started in under 5 minutes.
-You can learn it fast and it might save you a lot of time in the future. If you would like to
+Meet consultant, a simple, dynamic and language-independent template generator.  
+Check the [website](http://jense5.github.io/consultant) to get started in under 5 minutes.  
+You can learn it fast and it might save you a lot of time in the future.  
+If you would like to
 contribute, check [this](https://github.com/Jense5/consultant/blob/master/CONTRIBUTING.md) page.
 
 > ##### These docs are written for the new version that is still in development!
