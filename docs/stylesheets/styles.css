@@ -187,6 +187,7 @@ footer {
   float:left;
   position:fixed;
   bottom:50px;
+  text-align: center;
   -webkit-font-smoothing:subpixel-antialiased;
 }
 
@@ -267,5 +268,5 @@ footer {
 
 .icon {
   margin-bottom: 25px;
-  width: 175px;
+  width: 275px;
 }
