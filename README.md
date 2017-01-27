@@ -14,6 +14,8 @@ If you would like to contribute, check [this](https://github.com/Jense5/consulta
 
 > ##### These docs are written for the new version that is still in development!
 
+> All documentation will be written soon.
+
 ### Installation
 
 ```sh
