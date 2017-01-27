@@ -1,6 +1,6 @@
 {
   "name": "consultant-cli",
-  "version": "0.1.1",
+  "version": "0.0.0-development",
   "description": "Simple command line tool build fast customized cli boilerplates",
   "repository": "https://github.com/Jense5/consultant.git",
   "author": "Jensen Bernard <jensenbernard5@gmail.com>",
@@ -19,7 +19,8 @@
     "start": "./lib/index.js",
     "test": "mocha --compilers js:babel-core/register",
     "build": "babel src -d lib --copy-files && chmod +x lib/index.js",
-    "prepublish": "npm run lint && npm run test && npm run clear && npm run build"
+    "prepublish": "npm run lint && npm run test && npm run clear && npm run build",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "dependencies": {
     "babel": "^6.5.2",
@@ -53,6 +54,7 @@
     "eslint-plugin-react": "^6.9.0",
     "flow-bin": "^0.37.4",
     "mocha": "^3.2.0",
-    "rimraf": "^2.5.4"
+    "rimraf": "^2.5.4",
+    "semantic-release": "^6.3.2"
   }
 }
