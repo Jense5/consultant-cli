@@ -1,0 +1,46 @@
+name: Consultant
+version: 0.2.5
+downloadUrl: https://www.npmjs.com/package/consultant-cli
+license: BSD License
+licenseUrl: https://opensource.org/licenses/BSD-3-Clause
+
+headerLinks:
+  - title: GitHub
+    url: https://github.com/Jense5/consultant
+
+footerLinks:
+  - title: GitHub
+    url: https://github.com/Jense5/consultant
+  - title: Issues
+    url: https://github.com/Jense5/consultant/issues
+
+header:
+  color1: "#3DAADF"
+  color2: "#1F3A93"
+  trianglify: true
+
+analytics:
+  account:
+  domain:
+
+githubButton:
+  user: jense5
+  repo: consultant
+
+twitter:
+  enabled: true
+  via:
+  hash:
+  account:
+
+facebook:
+  enabled: false
+  profileUrl:
+
+exclude: ['README.md', 'LICENSE', 'bower.json', 'Gemfile.lock', 'Gemfile']
+
+gems:
+  - jekyll-mentions
+  - jemoji
+  - jekyll-redirect-from
+  - jekyll-sitemap
