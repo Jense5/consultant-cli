@@ -15,8 +15,8 @@ footerLinks:
     url: https://github.com/Jense5/consultant/issues
 
 header:
-  color1: "#3DAADF"
-  color2: "#1F3A93"
+  color1: "#080331"
+  color2: "#673051"
   trianglify: true
 
 analytics:
