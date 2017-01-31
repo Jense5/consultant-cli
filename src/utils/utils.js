@@ -24,22 +24,6 @@ exports.ensureTemplatesInstalled = (): Promise<> =>
   });
 
 /**
- * Validates if the given input is in the list of names or not. If it is, it will return the error
- * message. If it is not, it will return true.
- * @returns {mixed} An error message (string) or true (boolean)
- */
-const validateNew = (names: Array<string>, input: string) =>
-  (_.includes(names, input) ? content.templateAlreadyExists(input) : true);
-
-/**
- * Validates if the given input is in the list of names or not. If it is not, it will return the
- * error message. If it is, it will return true.
- * @returns {mixed} An error message (string) or true (boolean)
- */
-const validateOld = (names: Array<string>, input: string) =>
-  (_.includes(names, input) ? true : content.templateNotInstalled(input));
-
-/**
  * Returns a list of questions that should be asked in order for the user to choose a valid
  * template name. The given message will appear as the question and the given names will be used
  * to validate the answer. The existing boolean determines if the answer should be in the names
@@ -49,12 +33,22 @@ const validateOld = (names: Array<string>, input: string) =>
  * @param {boolean} existing Boolean representing whether or not the user should choose an existing
  *                           name or a new name.
  */
-const askForTemplate = (message: string, names: Array<string>, existing: boolean = true) => ([{
-  validate: input => (existing ? validateOld(names, input) : validateNew(names, input)),
-  type: 'input',
-  name: 'name',
-  message,
-}]);
+const askForTemplate = (message: string, names: Array<string>, existing: boolean = true) => {
+  if (!existing) {
+    return [{
+      validate: input => (_.includes(names, input) ? content.templateAlreadyExists(input) : true),
+      type: 'input',
+      name: 'name',
+      message,
+    }];
+  }
+  return [{
+    type: 'list',
+    name: 'name',
+    message,
+    choices: names,
+  }];
+};
 
 /**
  * Returns a promise with the name that the user enters. This name will always be valid as this
