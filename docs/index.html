@@ -523,8 +523,85 @@ $ cst snapshot
 <section class="bs-docs-section">
   <h1 id="contribute" class="page-header">Contribute</h1>
 
-  <h2 id="guidelines">Guidelines</h2>
-  <p> I need to add some stuff here</p>
+  <h2 id="code-of-conduct">Code of Conduct</h2>
+  <p>
+    Everyone is encouraged to contribute to consultant. The project is new and might become a lot
+    better if everyone would add some features. I am not constantly working on this project as I
+    have other stuff to do, so feel free to step in. Before you fork and start implementing a
+    feature, make sure to discuss it
+    <a target="_blank" href="https://github.com/Jense5/consultant/issues">here</a>. That way we
+    might already clear some details out about why or why not I would accept the pull request.
+    Please make sure to follow some basic guidelines as shown below.
+  </p>
+  <ul>
+    <li>Be careful</li>
+    <li>Be considerate</li>
+    <li>Be friendly and patient</li>
+  </ul>
 
+  <h2 id="semantic-vesions">Semantic Versioning</h2>
+  <p>
+    This repository uses <a target="_blank" href="http://semver.org">semantic versioning</a>.
+    Releases are automatically released with semantic release. I release patch versions for
+    bugfixes, minor versions for new features, and major versions for any breaking changes. When
+    there are breaking changes, I also introduce deprecation warnings in a minor version so that
+    users learn about the upcoming changes. In case there is something wrong because of the
+    automated releases, please
+    <a target="_blank" href="https://github.com/Jense5/consultant/issues">report</a> it as fast as
+    possible.
+  </p>
+
+  <h2 id="conventions">Conventions</h2>
+  <p>
+    I use the popular <a target="_blank" href="https://github.com/airbnb/javascript">Airbnb</a>
+    style guide. Make sure you do too in order for you pull request to get accepted. To check if
+    you code is conform these conventions, run the lint command. If you don't know how to contribute
+    with pull requests, check
+    <a target="_blank" href="https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github">
+    this</a> awesome tutorial out.
+  </p>
+{% highlight shell %}
+$ yarn lint
+{% endhighlight %}
+
+  <h2 id="development">Development</h2>
+  <p>
+    After cloning the repository, install all the dependencies and run the prepublish command. This
+    command will make sure eslint and tests did run and will build a new version into the dist
+    folder. Use the commit command to commit. Instead of the prepublish command, you can also run
+    all the commands yourself if you do not need to run them all. This might speed things up a bit.
+  </p>
+{% highlight shell %}
+# Using the automated workflow
+$ yarn install
+$ yarn prepublish
+$ yarn start -- --version
+$ yarn commit
+
+# Using the manual workflow
+$ yarn install
+$ yarn lint
+$ yarn test
+$ yarn build
+$ yarn start -- --version
+$ yarn commit
+{% endhighlight %}
+
+  <div class="alert alert-success" role="alert">
+    <h4>Thank You! 🎉</h4>
+    <p>
+      Thanks for using this tool. If you really like it, please
+      <a href="https://twitter.com/share"
+        target="_blank"
+        data-url="{{site.github.url}}"
+        data-count="horizontal"
+        data-via="{{site.twitter.via}}"
+        data-text="{{site.name}}"
+        data-hashtags="{{site.twitter.hash}}">spread the word</a>. If this is not the case at all,
+      I would appreciate it if you would
+      <a target="_blank" href="https://github.com/Jense5/consultant/issues">share the reason</a>.
+      That way I might be able to learn a thing or two and improve consultant so it fits your needs.
+    </p>
+  </div>
 
 </section>
