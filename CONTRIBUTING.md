@@ -10,14 +10,6 @@
 
 ### CONTRIBUTING
 
-If you would like to contribute, you are welcome to do so. All information about the current version of consultant can be found on the [website](http://jense5.github.io/consultant). I will also publish a roadmap in the future, which might help you to decide to work on a specific part of the tool. Always make clear what you are going to fix by creating an [issue](https://github.com/Jense5/consultant/issues). This way we can first discuss the feature and we can make sure no one is working on the same stuff. I will use the issues page of this repository to add tasks.
-
-#### Setup
-
-```sh
-$ git clone https://github.com/Jense5/consultant.git
-$ cd consultant
-$ yarn install
-$ yarn prepublish
-$ yarn start -- list
-```
+Check the [website](http://consultant.js.org) for all information needed in order to contribute.  
+Discuss the idea first with a new [issue](https://github.com/Jense5/consultant/issues) to make sure the pull request will get accepted.  
+Only contribute if you accept that your code will be distributed under the license of this repository.
