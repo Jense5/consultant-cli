@@ -26,32 +26,14 @@ isHome: true
     some aspects of a specific boilerplate and you are ready to take off. Coolest thing? It is
     language independent.
   </p>
-  <div class="alert alert-warning" role="alert">
-    <h4>Beta Version</h4>
-    <p>
-      The current version of consultant is still in beta and it will remain beta until it has a
-      decent userbase. It will not version up to 1.0.0 until it is tested on a variety of systems.
-      As of January 30th, 2017, it is only been tested on Mac OS X 10.12.2 and Ubuntu 16.04.1 LTS.
-      If you have any issues, please
-      <a target="_blank" href="https://github.com/Jense5/consultant/issues">report</a> them as
-      fast as possible. The documentation is also incomplete. Most actions are documented, but
-      more examples will be needed before it will version up to 1.0.0. You can always check the
-      issues on the Github repository to check the development status. To make sure you always
-      run on the newest version, run the update command from time to time.
-    </p>
-    <br />
-{% highlight shell %}
-$ npm update -g
-{% endhighlight %}
-  </div>
 </section>
 
 
 <section class="bs-docs-section">
-  <h1 id="setup" class="page-header">Setup Guide</h1>
+  <h1 id="setup" class="page-header">Setup</h1>
   <h2 id="install">Installation</h2>
   <p>
-    Since consultant is distributed via npm, you can install consultant-cli globally
+    Since consultant is distributed via npm, you can install <code>consultant-cli</code> globally
     via the node package manager. Run the version option after installation and compare
     your version with the one on this website to make sure you are reading the correct documentation
     for your version. If you would like to remove the toolkit, make sure to also remove the
@@ -73,121 +55,84 @@ $ rm -rf ~/.cst-templates ~/.consultant
     file and cache folder exist. Use the <code>HELP</code> command to get a small overview of the
     possible commands and to make sure that the configuration file exists. Afterwards, open de
     configuration file and note that there are a lot of default values. All of these will come
-    clear in the sections below. Also, check that the created boilerplate cache is empty.
+    clear in the sections below. Make sure that the created boilerplate cache is empty.
   </p>
 {% highlight shell %}
 $ cst help
 $ vim ~/.consultant
 $ ls ~/.cst-boilerplates
 {% endhighlight %}
-  <h2 id="finalize">Finish Setup</h2>
-  <p>
-    As long as you did not encounter any problems while installing or setting up consultant, there
-    is a good chance you won't encounter any. It already executes a lot of the system commands on
-    first boot so we are pretty sure that it will work in the next steps too. If it did crash,
-    please <a target="_blank" href="https://github.com/Jense5/consultant/issues">report it</a>.
-  </p>
 </section>
 
 
 <section class="bs-docs-section">
-  <h1 id="boilerplates" class="page-header">Management</h1>
-  <h2 id="addingbp">Adding Boilerplates</h2>
+  <h1 id="usage" class="page-header">Basics</h1>
+
+  <h2 id="basics-add">Boilerplates</h2>
   <p>
     The first step is to add some static boilerplates to consultant. A static boilerplate is a
     simple set of files that can be used as a starting point to kickstart a new project. Note that
     you can choose a boilerplate in the language of your choice. For ease of
     use we will use <a target="_blank" href="https://github.com/gaearon/library-boilerplate">this
-    boilerplate</a>. Simply add it to the consultant library with the <code>ADD</code> command. The
-    last argument is the name to call the installed boilerplate. In case no name is given,
-    consultant will ask for a new one.
+    boilerplate</a>. Simply add it with the <code>ADD</code> command. The last argument is the name
+    to call the installed boilerplate. In case no name is given, consultant will ask for one.
   </p>
 {% highlight shell %}
+# Install an online boilerplate
 $ cst add 'https://github.com/gaearon/library-boilerplate' 'node-lib'
-{% endhighlight %}
-  <div class="alert alert-info" role="alert">
-    <h4>Local Boilerplates</h4>
-    <p>
-      You can also use local boilerplates to add them to consultant without them having to be in
-      an online repository. In this case you can just pass the local path of the boilerplate's
-      folder. All examples below are correct.
-    </p>
-    <br />
-{% highlight shell %}
+
+# Install a local boilerplate
 $ cst add . 'local-bp'
 $ cst add /an/absolute/path 'local-bp'
 $ cst add ../../../a/relative/path 'local-bp'
 {% endhighlight %}
-  </div>
 
-  <h2 id="listingbp">Browsing Boilerplates</h2>
-  <p>
-    Once you have added some boilerplates, it should be fun to see a list of the boilerplates which
-    are installed. Do this at any time with the <code>LIST</code> command. The names of the
-    different boilerplates should be unique. This command can be very useful to verify new names in
-    these scenarios.
-  </p>
-{% highlight shell %}
-$ cst list
-List of installed templates:
-    - node-lib
-{% endhighlight %}
-
-  <h2 id="removebp">Removing Boilerplate</h2>
+  <h2 id="basics-remove">Remove</h2>
   <p>
     It would not make much sense if we could add boilerplates, but couldn't remove them. Removing a
-    boilerplate can be done with the <code>REMOVE</code> command. Here you should also provide the
+    boilerplate can be done with the <code>REMOVE</code> command. You should also provide the
     name of the boilerplate as an extra argument. Again, if no name is provided, consultant will
     ask for one.
   </p>
 {% highlight shell %}
 $ cst remove 'node-lib'
-$ cst list
-No templates installed!
 {% endhighlight %}
-  <div class="alert alert-info" role="alert">
-    <h4>List for this Guide</h4>
-    <p>
-      We will not remove the template <code>node-lib</code> for this guide because we will need it
-      to build our new projects fast. In case you just removed the boilerplate, install it again
-      with the previously seen <code>ADD</code> command.
-    </p>
-    <br />
-{% highlight shell %}
-$ cst add 'https://github.com/gaearon/library-boilerplate' 'node-lib'
-{% endhighlight %}
-  </div>
 
-  <h2 id="createproject">Creating Projects</h2>
+  <h2 id="basics-list">Browse</h2>
+  <p>
+    Once you have added some boilerplates, it should be fun to see a list of the installed
+    boilerplates. Do this at any time with the <code>LIST</code> command. The names of the
+    different boilerplates should be unique. This command can be very useful to verify new names in
+    these scenarios.
+  </p>
+{% highlight shell %}
+$ cst list
+{% endhighlight %}
+
+  <h2 id="basics-create">Create</h2>
   <p>
     Now that we can manage our boilerplates, let's start using them. Kickstarting a new project is
     very easy with the <code>CREATE</code> command, followed by the name of the boilerplate we
     would like to use. Consultant will now craft the new app in the current working directory.
+    You can also provide an extra argument to the <code>CREATE</code> command, which will be used
+    as the relative path to the directory where the boilerplate should be copied to. If it does
+    not exists, consultant will create it for you.
   </p>
 {% highlight shell %}
+# Manual Creation
 $ mkdir scraper && cd scraper
 $ cst create 'node-lib'
-{% endhighlight %}
-  <div class="alert alert-info" role="alert">
-    <h4>Kickstarting on Another Location</h4>
-    <p>
-      You can also provide an extra argument to the <code>CREATE</code> command, which will be used
-      as the relative path to the directory where the boilerplate should be copied to. If it does
-      not exists, consultant will create it for you. This means we can replace the two last commands
-      by one.
-    </p>
-    <br />
-{% highlight shell %}
+
+# Automated Creation
 $ cst create 'node-lib' scraper
 {% endhighlight %}
-  </div>
 </section>
 
 
 <section class="bs-docs-section">
-  <h1 id="customization" class="page-header">Customization</h1>
+  <h1 id="customization" class="page-header">Advanced</h1>
 
-  <h2 id="custom-basics">Basics</h2>
+  <h2 id="custom-basics">Defaults</h2>
   <p>
     The real value of consultant is that you can customize boilerplates at runtime. This means that
     whenever you kickstart a new project with the same boilerplate, it might be customized

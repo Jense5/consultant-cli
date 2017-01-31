@@ -32,15 +32,16 @@
 }
 
 .bs-docs-section {
-  margin-top: 125px;
+  margin-top: 25px;
   padding: 25px;
-  border: solid 1px #bdc3c7;
+  border: solid 1px #ecf0f1;
   border-radius: 8px;
 }
 
 .no-push {
   margin-top: 0px;
   padding-top: 0px;
+  border: none;
 }
 
 .bs-docs-section > h2 {
@@ -58,4 +59,8 @@ p {
 
 h1 {
   font-size: 44px;
+}
+
+.bs-docs-footer .container p {
+  text-align: center !important;
 }
