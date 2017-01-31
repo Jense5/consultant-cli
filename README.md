@@ -25,7 +25,7 @@ $ npm install -g consultant-cli
 
 ```sh
 $ cst add 'https://github.com/Jense5/cst-markdown-tutorial.git' 'markdown'
-$ cst create 'template-name'
+$ cst create 'markdown'
 ```
 
 <br />
