@@ -20,8 +20,8 @@ header:
   trianglify: true
 
 analytics:
-  account:
-  domain:
+  account: UA-43675030-4
+  domain: auto
 
 githubButton:
   user: jense5
@@ -30,12 +30,8 @@ githubButton:
 twitter:
   enabled: true
   via:
-  hash: h
+  hash: consultantcli
   account:
-
-facebook:
-  enabled: false
-  profileUrl:
 
 exclude: ['README.md', 'LICENSE', 'bower.json', 'Gemfile.lock', 'Gemfile']
 
