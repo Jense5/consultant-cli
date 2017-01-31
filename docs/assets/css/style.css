@@ -34,7 +34,7 @@
 .bs-docs-section {
   margin-top: 25px;
   padding: 25px;
-  border: solid 1px #ecf0f1;
+  border: solid 1px #bdc3c7;
   border-radius: 8px;
 }
 
@@ -42,6 +42,7 @@
   margin-top: 0px;
   padding-top: 0px;
   border: none;
+  margin-bottom: -25px;
 }
 
 .bs-docs-section > h2 {
