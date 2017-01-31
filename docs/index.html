@@ -4,12 +4,8 @@ title: Home
 description: Simple Language Independent Template Generator
 isHome: true
 ---
-<div class="alert alert-danger" role="alert">
-  <h4>WORK IN PROGRESS</h4>
-  <p>You should only read these docs starting from February 1st, 2017.</p>
-</div>
 
-<section class="bs-docs-section">
+<section class="bs-docs-section no-push">
   <p></p>
   <h1 id="overview" class="page-header">What is consultant?</h1>
   <img src="https://img.shields.io/badge/status-beta-16a085.svg">
@@ -191,30 +187,22 @@ $ cst create 'node-lib' scraper
 <section class="bs-docs-section">
   <h1 id="customization" class="page-header">Customization</h1>
 
-  <h2 id="setup-consultant">Setup Boilerplate</h2>
+  <h2 id="custom-basics">Basics</h2>
   <p>
     The real value of consultant is that you can customize boilerplates at runtime. This means that
     whenever you kickstart a new project with the same boilerplate, it might be customized
     automatically based on the needs of your current project. In order to set this up, you should
     add a <code>consultantfile.js</code> to the root folder of your boilerplate. The most basic
-    consultant file should look like the one below.
+    consultant file should look like the one below. In case you would like to follow along, you can
+    check the <a target="_blank" href="https://github.com/Jense5/cst-markdown-tutorial">
+    cst-markdown-tutorial</a>. This is a basic example of a customized boilerplate for consultant,
+    which makes it easy to understand the configuration interface.
   </p>
-
 {% highlight javascript %}
 export default (template) => {};
 {% endhighlight %}
 
-  <div class="alert alert-info" role="alert">
-    <h4>Basic Markdown Example</h4>
-    <p>
-      In case you would like to follow along, you can check the
-      <a target="_blank" href="https://github.com/Jense5/cst-markdown-tutorial">
-      cst-markdown-tutorial</a> repository. This is a basic example of a customized boilerplate for
-      consultant, which makes it easy to understand the configuration interface.
-    </p>
-  </div>
-
-  <h2 id="source-path">Source Path</h2>
+  <h2 id="custom-source">Source</h2>
   <p>
     Before we proceed, you should understand the fundamental difference between a static and
     dynamic boilerplate. Whenever no configuration file is found in the root of the boilerplate,
@@ -223,35 +211,24 @@ export default (template) => {};
     we have to specify where the real source code of the boilerplate is located. This folder
     is called <code>boilerplate</code> in the
     <a target="_blank" href="https://github.com/Jense5/cst-markdown-tutorial">
-    cst-markdown-tutorial</a>.
+    cst-markdown-tutorial</a>. You can set this to whatever you want it to be. You may decide not
+    to define it, in which case the default folder is used. This is not advised because default
+    folders might change from machine to machine, in which case your boilerplate might break.
   </p>
-
 {% highlight javascript %}
 export default (template) => {
   template.useSourceFolder('boilerplate');
 };
 {% endhighlight %}
+  <p>
+    We will be talking a lot about the configuration files in these sections. Note that whenever
+    we are talking about the <code>~/.consultant</code> file, we will refer to it as the main
+    configuration file, while the <code>consultantfile.js</code> is the configuration
+    file of your boilerplate. All JavaScript configuration code you will see, should be located in
+    the boilerplates configuration file.
+  </p>
 
-  <div class="alert alert-danger" role="alert">
-    <h4>No Source Specified</h4>
-    <p>
-      It is not mandatory to define the source folder of the boilerplate, however is it <b>strongly
-      advised</b> to do so. If no source folder is specified, the default source folder from the
-      main consultant configuration file will be used. Because this might differ from machine to
-      machine, your dynamic boilerplate might break.
-    </p>
-  </div>
-  <div class="alert alert-info" role="alert">
-    <h4>Different Configuration Files</h4>
-    <p>
-      We will be talking a lot about the configuration files in these sections. Note that whenever
-      we are talking about the <b>~/.consultant</b> file, we will refer to it as the main
-      consultant configuration file, while the <b>consultantfile.js</b> is the configuration
-      file of your boilerplate.
-    </p>
-  </div>
-
-  <h2 id="variable-insertion">Variable Insertion</h2>
+  <h2 id="custom-vars">Variables</h2>
   <p>
     While generating a dynamic boilerplate, it is possible to present certain questions to the user
     in order to have a better understanding of the nature of the project. Consultant uses the
@@ -260,7 +237,6 @@ export default (template) => {
     types of questions can be used. You can simply pass these questions to
     <code>template.ask()</code>. Here is an example where we ask for the name of the user.
   </p>
-
 {% highlight javascript %}
 export default (template) => {
 
@@ -275,94 +251,82 @@ export default (template) => {
 
 };
 {% endhighlight %}
-
   <p>
-    When this boilerplate will be generated, the user is first asked the given list of questions.
+    When this boilerplate is generated, the user is first asked the given list of questions.
     After the interview, all these variables are available from within the files of the specified
     source folder. Consultant uses <a target="_blank" href="https://github.com/janl/mustache.js/">
     Mustache</a> to render the boilerplate. Make sure to check the documentation for all possible
-    syntax. An example C file might now look like this. Underneath, I have added a possible rendered
-    file when the user answered the question with 'John Doe'.
+    syntax. An example C file might now look like the one below. Underneath, I have added a possible
+    rendered file when the user answered the question with 'John Doe'.
   </p>
-
 {% highlight c %}
 /* boilerplate/main.c */
 #include<stdio.h>
-main()
-{
+main() {
   {% raw %}printf("Hello, {{ name }} !");{% endraw %}
 }
 {% endhighlight %}
-
 {% highlight c %}
 /* main.c */
 #include<stdio.h>
-main()
-{
+main() {
   printf("Hello, John Doe !");
 }
 {% endhighlight %}
+  <p>
+    You can do a whole lot more than just inserting variables. Everything that's possible
+    with the default mustache rendering engine, is possible with consultant. I advise to take a look
+    at the <a target="_blank" href="https://github.com/Jense5/cst-markdown-tutorial">
+    cst-markdown-tutorial</a>, where I used negations and loops, which might help you along the way.
+    There are a centillion tutorials online about mustache because it already exists for a while,
+    which makes it easy to find whatever you need.
+  </p>
 
-  <div class="alert alert-info" role="alert">
-    <h4>Variable Manipulations</h4>
-    <p>
-      Note that you can do a whole lot more than just inserting variables. Everything that's possible
-      with the default mustache rendering engine, is possible with consultant. I advise to take a look
-      at the <a target="_blank" href="https://github.com/Jense5/cst-markdown-tutorial">
-      cst-markdown-tutorial</a>, where I used negations and loops, which might help you along the way.
-      There are a bizillion tutorials online about mustache and it already exists for a while, which
-      makes it easy to find whatever you need.
-    </p>
-  </div>
-
-  <h2 id="custom-delimiters">Custom Delimiters</h2>
+  <h2 id="custom-delimiters">Delimiters</h2>
   <p>
     The default templating syntax of mustache is great, but sometimes you just can't use it. When
     you are creating an Angular boilerplate for example, you just can't use the double bracket
-    notation for your dynamic boilerplate. That's why you can override them! It is for these cases
+    notation for your dynamic boilerplate. That's why you can override them. It is for these cases
     that consultant has the <code>template.setStart()</code> and <code>template.setEnd()</code>
     functions. Below you can see how easy it is to override the delimiters and use adapt them for
-    your project.
+    your project. We use the same example as the one used earlier, but we adapted the delimiters
+    for now. The defaults are still the double brackets, because I feel they are the most natural
+    way of creating templates.
   </p>
-
 {% highlight javascript %}
 export default (template) => {
 
   // ...
 
-  template.setStart('>>>');
-  template.setEnd('<<<');
+  template.setStart('<<<');
+  template.setEnd('>>>');
 
 };
 {% endhighlight %}
-
 {% highlight c %}
 /* boilerplate/main.c */
 #include<stdio.h>
-main()
-{
-  {% raw %}printf("Hello, >>> name <<< !");{% endraw %}
+main() {
+  {% raw %}printf("Hello, <<< name >>> !");{% endraw %}
 }
 {% endhighlight %}
-
 {% highlight c %}
 /* main.c */
 #include<stdio.h>
-main()
-{
+main() {
   printf("Hello, John Doe !");
 }
 {% endhighlight %}
 
-  <h2 id="file-filters">Filtering Files</h2>
+  <h2 id="custom-filters">Filters</h2>
   <p>
     As you have seen before, it is possible to use if-statements and loops in the templates.
     However, often enough you would just like to not generate a file at all based on some chosen
     variable of the user. In this case, the <code>template.filter()</code> comes into play. In the
-    example below, <b>extra.md</b> will only be generated if the user replied <b>yes</b> to the
-    confirmation question.
+    example below, <code>extra.md</code> will only be generated if the user replied 'yes' to the
+    confirmation question. The argument of the filter validation function will always be a
+    dictionary with all the chosen variables of the user.
   </p>
-
 {% highlight javascript %}
 export default (template) => {
 
@@ -379,34 +343,23 @@ export default (template) => {
 
 };
 {% endhighlight %}
+  <p>
+    We should also state that the order of the functions in the boilerplate configuration file does
+    not matter for consultant. This is due to the delayed execution. The functions just set the
+    parameters for the process. The process itself will only start when the configuration
+    function is finished.
+  </p>
 
-  <div class="alert alert-info" role="alert">
-    <h4>Order of Functions</h4>
-    <p>
-      The order of the functions in the boilerplate configuration file does not matter for
-      consultant. This is due to the delayed execution of consultant: the functions just set the
-      parameters for the process. The process itself will only start when the configuration
-      function is executed.
-    </p>
-  </div>
-  <div class="alert alert-danger" role="alert">
-    <h4>No Recursive Filtering</h4>
-    <p>
-      At the time of writing there is no recursive filter function implemented. This is planned for
-      future versions. The <code>template.ignoreRecursive()</code> does already exist in this
-      version though. You will encounter this in next section.
-    </p>
-  </div>
-
-  <h2 id="hidden-elements">Hidden Elements</h2>
+  <h2 id="custom-hide">Secrets</h2>
   <p>
     Consultant provides a very easy way to hide files from a boilerplate generation. This can be
     useful when dealing with environment files, password files, etc. Hiding files or directories
     is as simple as calling <code>template.ignore()</code> and
-    <code>template.ignoreRecursive()</code>. In the example below, we do not render the <b>.env</b>
-    file and the <b>secret</b> folder.
+    <code>template.ignoreRecursive()</code>. In the example below, we do not render the
+    <code>.env</code> file or anything inside the <code>secret</code> folder. It should be clear
+    that this is the same functionality as passing a function to the filter method that always
+    returns true.
   </p>
-
 {% highlight javascript %}
 export default (template) => {
 
@@ -418,17 +371,17 @@ export default (template) => {
 };
 {% endhighlight %}
 
-  <h2 id="summaries">Process Summaries</h2>
+  <h2 id="custom-summaries">Summaries</h2>
   <p>
-    You now know how to kickstart a new project with consultant. It does not end here though.
+    You now know how to kickstart a new project with consultant.
     Consultant provides an option to add an introduction and summary to the generation process.
     This makes it possible to improve the user experience and provided feedback about certain
     parameters used in the process. You can set them with <code>template.setIntroduction()</code>
     and <code>template.setSummary()</code>. An introduction is just a string, but a summary is a
     synchronious callback that returns a string which makes it possible to use variables used
-    in the setup process.
+    in the setup process. The passed parameter will be a dictionary with all chosen variables of
+    the user.
   </p>
-
 {% highlight javascript %}
 export default (template) => {
 
@@ -440,89 +393,103 @@ export default (template) => {
 };
 {% endhighlight %}
 
-  <h2 id="simple-examples">Simple Examples</h2>
-  <p>
-    As said above, the <a target="_blank" href="https://github.com/Jense5/cst-markdown-tutorial">
-    cst-markdown-tutorial</a> is a very good starting point to get to know the different
-    possibilities of consultant. At the time of writing I am working on a couple of useful dynamic
-    boilerplates for node. They should be finished in about two weeks. When they are ready,
-    I will post them here. If you have some other nice examples,
-    <a target="_blank" href="http://www.twitter.com/PreShove">let me know!</a>
-  </p>
-
+  <h2 id="simple-examples">Examples</h2>
+  <ul>
+    <li><a target="_blank" href="https://github.com/Jense5/cst-markdown-tutorial">Markdown Tutorial</a></li>
+  </ul>
+  <br />
+  <div class="alert alert-success" role="alert">
+    <h4>New Examples 🤓</h4>
+    <p>
+      At the time of writing I am working on a couple of useful dynamic
+      boilerplates for node. They should be finished in about two weeks. When they are ready,
+      I will post them here. If you have some other nice examples,
+      <a target="_blank" href="http://www.twitter.com/PreShove">let me know</a>!
+    </p>
+  </div>
 </section>
 
 <section class="bs-docs-section">
-  <h1 id="commands" class="page-header">Useful Commands</h1>
-
-  <h2 id="reset">Reset all boilerplates</h2>
+  <h1 id="advanced" class="page-header">Workflow</h1>
+  <h2 id="help">Help</h2>
   <p>
-    Consultant comes with a built-in <code>reset</code> command which allows you to remove all
-    boilerplates at once. Adding the <code>--hard</code> option will make sure no action is
-    required.
+    You can run the <code>HELP</code> command to show the most recent weblinks to the documentation
+    or the issues page. It should also show some frequently asked questions to get you started
+    with the consultant tool. A list of commands will also be printed, in case you forgot one!
   </p>
-
-{% highlight shell %}
-# Remove all boilerplates
-$ npm reset --hard
-$ cst list
-No templates installed!
-{% endhighlight %}
-
-  <h2 id="batch">Batch Add</h2>
-  <p>
-    It is possible to add multiple boilerplates at once. This makes it possible to make an ideal
-    setup, which is easy to install. Makes it possible to use a collection kind of sharing style.
-  </p>
-
-{% highlight shell %}
-$ cst batch batch.json
-{% endhighlight %}
-
-{% highlight json %}
-{
-  "data": [{
-    "url": "link",
-    "name": "name"
-  }]
-}
-{% endhighlight %}
-
-  <h2 id="verbose">Verbose Mode</h2>
-  <p>
-    You can add <code>--verbose</code> at any time for debug log.
-  </p>
-
-{% highlight shell %}
-$ cst list --verbose
-{% endhighlight %}
-
-  <h2 id="help">Help Command</h2>
-  <p>
-    You can run <code>help</code> and it will show FAQ and links.
-  </p>
-
 {% highlight shell %}
 $ cst help
 {% endhighlight %}
 
-  <h2 id="snapshot">Snapshot Command</h2>
+  <h2 id="batch">Batch</h2>
   <p>
-    You can run <code>snapshot</code> and it will snapshot the current directory and store it as
-    a boilerplate. Is the same as <code>cst add .</code>.
+    Managing a lot of boilerplates can still be an awkward amount of work. That's a fair enough
+    reason for consultant to support adding multiple boilerplates at once with the
+    <code>BATCH</code> command. This command asks for a json file as input, which should have
+    the structure of the one below. You can list as many boilerplates as you wish, together with the
+    name for consultant. In case no name, an invalid name or a duplicate name is given, consultant
+    will pause the process to ask for a new one.
   </p>
+{% highlight json %}
+{
+  "data": [{
+    "url": "https://github.com/gaearon/library-boilerplate",
+    "name": "node-lib"
+  }]
+}
+{% endhighlight %}
+{% highlight shell %}
+$ cst batch batch.json
+{% endhighlight %}
 
+  <h2 id="reset">Reset</h2>
+  <p>
+    Being able to add a lot of boilerplates with one single command makes it easy to make backups
+    of your configuration. Together with this command, I have create a simple <code>RESET</code>
+    command which resets and removes all boilerplates of consultant. This makes it easy to remove
+    them all and then restoring a workspace with the batch command. Consultant will ask for
+    confirmation when you are about to reset. To precent this, add the hard option to the command
+    arguments.
+  </p>
+{% highlight shell %}
+$ cst reset --hard
+{% endhighlight %}
+
+  <h2 id="verbose">Verbose</h2>
+  <p>
+    It might be useful to run in <code>VERBOSE</code> mode to know exactly what consultant is doing.
+    The verbose option can be added to any command. It uses winston for logging and will set the
+    log level to debug when the verbose option is detected.
+  </p>
+{% highlight shell %}
+$ cst list --verbose
+{% endhighlight %}
+
+  <h2 id="snapshot">Snapshot</h2>
+  <p>
+    The last possible command of this version of consultant is the <code>SNAPSHOT</code> command.
+    This basically snapshots the current working directory and stores it as a boilerplate. This
+    can be useful when you are working on a project and, when the boilerplating is finished, you
+    snapshot the root of your project so you can use it again at a later point in time. This has
+    the same effect as adding the current working directory.
+  </p>
 {% highlight shell %}
 $ cst snapshot
 {% endhighlight %}
-
-
-
+  <div class="alert alert-success" role="alert">
+    <h4>New Workflows 🔥</h4>
+    <p>
+      In case the current workflow is too awkward for you and you have a proposal for another way
+      of working,
+      <a target="_blank" href="https://github.com/Jense5/consultant/issues">let me know</a>.
+      There might be an easier way to handle boilerplates, but this was the most straightforward to
+      work with after a couple trials.
+    </p>
+  </div>
 </section>
 
 <section class="bs-docs-section">
   <h1 id="contribute" class="page-header">Contribute</h1>
-
   <h2 id="code-of-conduct">Code of Conduct</h2>
   <p>
     Everyone is encouraged to contribute to consultant. The project is new and might become a lot
@@ -586,7 +553,6 @@ $ yarn build
 $ yarn start -- --version
 $ yarn commit
 {% endhighlight %}
-
   <div class="alert alert-success" role="alert">
     <h4>Thank You! 🎉</h4>
     <p>
@@ -603,5 +569,4 @@ $ yarn commit
       That way I might be able to learn a thing or two and improve consultant so it fits your needs.
     </p>
   </div>
-
 </section>

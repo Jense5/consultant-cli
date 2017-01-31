@@ -31,6 +31,18 @@
   background:linear-gradient(135deg, transparent 50px, white 50px);
 }
 
+.bs-docs-section {
+  margin-top: 125px;
+  padding: 25px;
+  border: solid 1px #bdc3c7;
+  border-radius: 8px;
+}
+
+.no-push {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
 .bs-docs-section > h2 {
   margin-bottom: 25px;
 }
