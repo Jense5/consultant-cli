@@ -28,6 +28,8 @@ $ cst add 'https://github.com/Jense5/cst-markdown-tutorial.git' 'markdown'
 $ cst create 'template-name'
 ```
 
+<br />
+
 <p align="center">
   <a href="https://js.org" target="_blank" title="JS.ORG | JavaScript Community">
   <img src="https://logo.js.org/dark_horz.png" width="102" alt="JS.ORG Logo"/></a>
