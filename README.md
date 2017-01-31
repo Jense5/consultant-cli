@@ -7,6 +7,7 @@
   <img src="https://img.shields.io/npm/l/consultant-cli.svg">
 </p>
 
+
 Meet consultant, a simple, dynamic and language-independent template generator.  
 You can learn it fast and it might save you a lot of time in the future.  
 Check the [website](http://jense5.github.io/consultant) to get started in under 5 minutes.  
@@ -30,3 +31,8 @@ $ cst add /path/to/template template-name
 # Generate the new template in the current folder!
 $ cst create template-name
 ```
+
+<p align="center">
+  <a href="https://js.org" target="_blank" title="JS.ORG | JavaScript Community">
+  <img src="https://logo.js.org/dark_horz.png" width="102" alt="JS.ORG Logo"/></a>
+</p>
