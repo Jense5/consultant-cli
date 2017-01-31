@@ -8,11 +8,18 @@ import winston from 'winston';
 import Promise from 'bluebird';
 import Mustache from 'mustache';
 import inquirer from 'inquirer';
-import { System } from 'es6-module-loader';
+import SystemJS from 'systemjs';
 
 import utils from '../utils/utils';
 
 const fse = Promise.promisifyAll(rfse);
+SystemJS.config({
+  transpiler: 'plugin-babel',
+  map: {
+    'plugin-babel': path.resolve(__dirname, '../../node_modules/systemjs-plugin-babel/plugin-babel.js'),
+    'systemjs-babel-build': path.resolve(__dirname, '../../node_modules/systemjs-plugin-babel/systemjs-babel-browser.js'),
+  },
+});
 
 /**
  * This class represents a template, which will be able to render to some output location.
@@ -108,7 +115,7 @@ class Template {
    */
   render(output: string): Promise<> {
     return new Promise((resolve) => {
-      System.import(this.configurationPath()).then((setup) => {
+      SystemJS.import(this.configurationPath()).then((setup) => {
         setup.default(this);
         Mustache.tags = [this.start, this.end];
         utils.info(this.introduction);
@@ -124,7 +131,7 @@ class Template {
             });
           });
         });
-      });
+      }).catch(winston.error);
     });
   }
 
