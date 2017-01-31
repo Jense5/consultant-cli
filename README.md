@@ -7,29 +7,23 @@
   <img src="https://img.shields.io/npm/l/consultant-cli.svg">
 </p>
 
+Consultant is a simple, language-independent and dynamic boilerplate generator. It stores all your
+boilerplates locally and provides an easy to use interface to manage them, as well as the possibility
+to customize them when kickstarting a new project. This way it is possible to adjust boilerplates based
+on the nature of the project. Check out the <a href="http://consultant.js.org">documentation</a> for
+more info.
 
-Meet consultant, a simple, dynamic and language-independent template generator.  
-You can learn it fast and it might save you a lot of time in the future.  
-Check the [website](http://jense5.github.io/consultant) to get started in under 5 minutes.  
-If you would like to contribute, check [this](https://github.com/Jense5/consultant/blob/master/CONTRIBUTING.md) page.
-
-> ##### These docs are written for the new version that is still in development!
-
-> All documentation will be written soon.
-
-### Installation
+###### Installation
 
 ```sh
 $ npm install -g consultant-cli
 ```
 
-### Usage
+###### Example
 
 ```sh
-# Add a template or boilerplate, local or online (You can use a repo url).
-$ cst add /path/to/template template-name
-# Generate the new template in the current folder!
-$ cst create template-name
+$ cst add 'https://github.com/Jense5/cst-markdown-tutorial.git' 'markdown'
+$ cst create 'template-name'
 ```
 
 <p align="center">
