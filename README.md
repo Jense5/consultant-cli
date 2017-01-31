@@ -10,7 +10,7 @@
 Consultant is a simple, language-independent and dynamic boilerplate generator. It stores all your
 boilerplates locally and provides an easy to use interface to manage them, as well as the possibility
 to customize them when kickstarting a new project. This way it is possible to adjust boilerplates based
-on the nature of the project. Check out the <a href="http://consultant.js.org">documentation</a> for
+on the nature of the project. Check the <a href="http://consultant.js.org">docs</a> for
 more info.
 
 ###### Installation
