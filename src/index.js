@@ -37,7 +37,7 @@ commander
 // Present the command and version number to the user, so if there
 // are some bugs, he can always identify the version he used.
 const command = commander.args.length > 0 ? `${commander.args[0].toUpperCase()} ` : '';
-utils.info(chalk.bold(`Consultant ${command}v${pack.version}`));
+utils.info(`Consultant ${command}v${pack.version}`);
 
 // Set the level of winston so it is easy to debug! This winston
 // instance will be used everywhere in the tool.
