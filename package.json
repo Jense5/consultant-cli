@@ -7,19 +7,19 @@
   "keywords": [
     "consultant-cli"
   ],
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "license": "BSD",
   "bin": {
-    "consultant": "./lib/index.js",
-    "cst": "./lib/index.js"
+    "consultant": "./dist/index.js",
+    "cst": "./dist/index.js"
   },
   "scripts": {
     "commit": "git-cz",
-    "clear": "rimraf lib dist",
+    "clear": "rimraf dist",
     "lint": "eslint src test",
-    "start": "./lib/index.js",
+    "start": "./dist/index.js",
     "test": "mocha --compilers js:babel-core/register",
-    "build": "babel src -d lib --copy-files && chmod +x lib/index.js",
+    "build": "babel src -d dist --copy-files && chmod +x dist/index.js",
     "prepublish": "npm run lint && npm run test && npm run clear && npm run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
