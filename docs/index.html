@@ -8,11 +8,11 @@ isHome: true
 <section class="bs-docs-section no-push">
   <p></p>
   <h1 id="overview" class="page-header">What is consultant?</h1>
-  <img src="http://img.shields.io/badge/status-beta-16a085.svg">
-  <img src="http://travis-ci.org/Jense5/consultant.svg?branch=master">
-  <img src="http://img.shields.io/npm/v/consultant-cli.svg">
-  <img src="http://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
-  <img src="http://img.shields.io/npm/l/consultant-cli.svg">
+  <img src="https://img.shields.io/badge/status-beta-16a085.svg">
+  <img src="https://travis-ci.org/Jense5/consultant.svg?branch=master">
+  <img src="https://img.shields.io/npm/v/consultant-cli.svg">
+  <img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
+  <img src="https://img.shields.io/npm/l/consultant-cli.svg">
   <br /><br />
   <p>
     Consultant is a simple, straightforward, language-independent project kickstarter
@@ -73,13 +73,13 @@ $ ls ~/.cst-boilerplates
     The first step is to add some static boilerplates to consultant. A static boilerplate is a
     simple set of files that can be used as a starting point to kickstart a new project. Note that
     you can choose a boilerplate in the language of your choice. For ease of
-    use we will use <a target="_blank" href="http://github.com/gaearon/library-boilerplate">this
+    use we will use <a target="_blank" href="https://github.com/gaearon/library-boilerplate">this
     boilerplate</a>. Simply add it with the <code>ADD</code> command. The last argument is the name
     to call the installed boilerplate. In case no name is given, consultant will ask for one.
   </p>
 {% highlight shell %}
 # Install an online boilerplate
-$ cst add 'http://github.com/gaearon/library-boilerplate' 'node-lib'
+$ cst add 'https://github.com/gaearon/library-boilerplate' 'node-lib'
 
 # Install a local boilerplate
 $ cst add . 'local-bp'
@@ -139,7 +139,7 @@ $ cst create 'node-lib' scraper
     automatically based on the needs of your current project. In order to set this up, you should
     add a <code>consultantfile.js</code> to the root folder of your boilerplate. The most basic
     consultant file should look like the one below. In case you would like to follow along, you can
-    check the <a target="_blank" href="http://github.com/Jense5/cst-markdown-tutorial">
+    check the <a target="_blank" href="https://github.com/Jense5/cst-markdown-tutorial">
     cst-markdown-tutorial</a>. This is a basic example of a customized boilerplate for consultant,
     which makes it easy to understand the configuration interface.
   </p>
@@ -155,7 +155,7 @@ export default (template) => {};
     boilerplate will be copied when kickstarting a new project. When we have a dynamic boilerplate,
     we have to specify where the real source code of the boilerplate is located. This folder
     is called <code>boilerplate</code> in the
-    <a target="_blank" href="http://github.com/Jense5/cst-markdown-tutorial">
+    <a target="_blank" href="https://github.com/Jense5/cst-markdown-tutorial">
     cst-markdown-tutorial</a>. You can set this to whatever you want it to be. You may decide not
     to define it, in which case the default folder is used. This is not advised because default
     folders might change from machine to machine, in which case your boilerplate might break.
@@ -177,7 +177,7 @@ export default (template) => {
   <p>
     While generating a dynamic boilerplate, it is possible to present certain questions to the user
     in order to have a better understanding of the nature of the project. Consultant uses the
-    <a target="_blank" href="http://github.com/sboudrias/Inquirer.js">inquirer</a> module to ask
+    <a target="_blank" href="https://github.com/sboudrias/Inquirer.js">inquirer</a> module to ask
     questions to the user. Take a look at the examples from the repository to get a feel of which
     types of questions can be used. You can simply pass these questions to
     <code>template.ask()</code>. Here is an example where we ask for the name of the user.
@@ -199,7 +199,7 @@ export default (template) => {
   <p>
     When this boilerplate is generated, the user is first asked the given list of questions.
     After the interview, all these variables are available from within the files of the specified
-    source folder. Consultant uses <a target="_blank" href="http://github.com/janl/mustache.js/">
+    source folder. Consultant uses <a target="_blank" href="https://github.com/janl/mustache.js/">
     Mustache</a> to render the boilerplate. Make sure to check the documentation for all possible
     syntax. An example C file might now look like the one below. Underneath, I have added a possible
     rendered file when the user answered the question with 'John Doe'.
@@ -221,7 +221,7 @@ main() {
   <p>
     You can do a whole lot more than just inserting variables. Everything that's possible
     with the default mustache rendering engine, is possible with consultant. I advise to take a look
-    at the <a target="_blank" href="http://github.com/Jense5/cst-markdown-tutorial">
+    at the <a target="_blank" href="https://github.com/Jense5/cst-markdown-tutorial">
     cst-markdown-tutorial</a>, where I used negations and loops, which might help you along the way.
     There are a centillion tutorials online about mustache because it already exists for a while,
     which makes it easy to find whatever you need.
@@ -340,7 +340,7 @@ export default (template) => {
 
   <h2 id="simple-examples">Examples</h2>
   <ul>
-    <li><a target="_blank" href="http://github.com/Jense5/cst-markdown-tutorial">Markdown Tutorial</a></li>
+    <li><a target="_blank" href="https://github.com/Jense5/cst-markdown-tutorial">Markdown Tutorial</a></li>
   </ul>
   <br />
   <div class="alert alert-success" role="alert">
@@ -378,7 +378,7 @@ $ cst help
 {% highlight json %}
 {
   "data": [{
-    "url": "http://github.com/gaearon/library-boilerplate",
+    "url": "https://github.com/gaearon/library-boilerplate",
     "name": "node-lib"
   }]
 }
@@ -436,7 +436,7 @@ $ cst snapshot
     <p>
       In case the current workflow is too awkward for you and you have a proposal for another way
       of working,
-      <a target="_blank" href="http://github.com/Jense5/consultant/issues">let me know</a>.
+      <a target="_blank" href="https://github.com/Jense5/consultant/issues">let me know</a>.
       There might be an easier way to handle boilerplates, but this was the most straightforward to
       work with after a couple trials.
     </p>
@@ -451,7 +451,7 @@ $ cst snapshot
     better if everyone would add some features. I am not constantly working on this project as I
     have other stuff to do, so feel free to step in. Before you fork and start implementing a
     feature, make sure to discuss it
-    <a target="_blank" href="http://github.com/Jense5/consultant/issues">here</a>. That way we
+    <a target="_blank" href="https://github.com/Jense5/consultant/issues">here</a>. That way we
     might already clear some details out about why or why not I would accept the pull request.
     Please make sure to follow some basic guidelines as shown below.
   </p>
@@ -469,17 +469,17 @@ $ cst snapshot
     there are breaking changes, I also introduce deprecation warnings in a minor version so that
     users learn about the upcoming changes. In case there is something wrong because of the
     automated releases, please
-    <a target="_blank" href="http://github.com/Jense5/consultant/issues">report</a> it as fast as
+    <a target="_blank" href="https://github.com/Jense5/consultant/issues">report</a> it as fast as
     possible.
   </p>
 
   <h2 id="conventions">Conventions</h2>
   <p>
-    I use the popular <a target="_blank" href="http://github.com/airbnb/javascript">Airbnb</a>
+    I use the popular <a target="_blank" href="https://github.com/airbnb/javascript">Airbnb</a>
     style guide. Make sure you do too in order for you pull request to get accepted. To check if
     you code is conform these conventions, run the lint command. If you don't know how to contribute
     with pull requests, check
-    <a target="_blank" href="http://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github">
+    <a target="_blank" href="https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github">
     this</a> awesome tutorial out.
   </p>
 {% highlight shell %}
@@ -512,7 +512,7 @@ $ yarn commit
     <h4>Thank You! 🎉</h4>
     <p>
       Thanks for using this tool. If you really like it, please
-      <a href="http://twitter.com/share"
+      <a href="https://twitter.com/share"
         target="_blank"
         data-url="{{site.github.url}}"
         data-count="horizontal"
@@ -520,7 +520,7 @@ $ yarn commit
         data-text="{{site.name}}"
         data-hashtags="{{site.twitter.hash}}">spread the word</a>. If this is not the case at all,
       I would appreciate it if you would
-      <a target="_blank" href="http://github.com/Jense5/consultant/issues">share the reason</a>.
+      <a target="_blank" href="https://github.com/Jense5/consultant/issues">share the reason</a>.
       That way I might be able to learn a thing or two and improve consultant so it fits your needs.
     </p>
   </div>

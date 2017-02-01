@@ -17,7 +17,7 @@ footerLinks:
 header:
   color1: "#34495e"
   color2: "#3498db"
-  trianglify: true
+  trianglify: false
 
 analytics:
   account: UA-43675030-4
