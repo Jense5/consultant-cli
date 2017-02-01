@@ -67,7 +67,7 @@ const ensureTemplateName = (name: string, msg: string, exc: boolean, o:?string):
     list(process.env.templates || '.').then((names) => {
       const incl = _.includes(names, name);
       if (!name || ((incl || exc) && !(incl && exc))) {
-        info(content.listTemplates(names));
+        if (!exc) { info(content.listTemplates(names)); }
         if (o) { info(content.resolveFor(o)); }
         inquirer.prompt(askForTemplate(msg, names, exc))
         .then(answer => resolve(answer.name));
@@ -83,8 +83,8 @@ const ensureTemplateName = (name: string, msg: string, exc: boolean, o:?string):
  * @param {name} name The already provided input of the user (undefined if none)
  * @param {string} message The message to appear as the question
  */
-exports.ensureExistingTemplateName = (name: string, msg: string, o:?string): Promise<string> =>
-  ensureTemplateName(name, msg, true, o);
+exports.ensureExistingTemplateName = (name: string, msg: string): Promise<string> =>
+  ensureTemplateName(name, msg, true);
 
 /**
  * Returns a promise with the name that the user enters. This name will always be valid as this
