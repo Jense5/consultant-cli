@@ -16,7 +16,7 @@ more info.
 </p>
 
 
-<h2><a href="http://consultant.js.org">Getting Started</a></h2>
+<h4><a href="http://consultant.js.org">Getting Started</a></h4>
 
 ###### Installation
 
