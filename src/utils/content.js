@@ -50,6 +50,6 @@ exports.removedTemplate = (name: string): string => `Removed '${name}'.`;
 exports.resetSuccess = (): string => 'I removed all boilerplates.';
 exports.nevermind = (): string => 'Ok, nevermind.';
 
-exports.resolveFor = (o: string) => `Please resolve naming conflict for ${o}...`;
+exports.resolveFor = (o: string) => `Please resolve naming conflict for ${chalk.cyan(o)}...`;
 exports.invalidBatch = () => `${chalk.red('Batch does not exist or is invalid.')}`;
 exports.done = () => 'Finished.';
