@@ -2,7 +2,7 @@ name: Consultant
 version: 0.2.5
 downloadUrl: https://www.npmjs.com/package/consultant-cli
 license: BSD License
-licenseUrl: https://opensource.org/licenses/BSD-3-Clause
+licenseUrl: https://opensource.org/licenses/BSD-3-Claus
 
 headerLinks:
   - title: GitHub
@@ -22,6 +22,9 @@ header:
 analytics:
   account: UA-43675030-4
   domain: auto
+
+github:
+  url: https://consultant.js.org
 
 githubButton:
   user: jense5
