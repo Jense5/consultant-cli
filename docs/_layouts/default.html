@@ -7,11 +7,11 @@
   <title>{{site.name}}</title>
 
   <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="http://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="http://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
   <link href="{{site.github.url}}/assets/css/docs.min.css" rel="stylesheet">
   <link href="{{site.github.url}}/assets/css/style.css" rel="stylesheet">
 
@@ -23,9 +23,9 @@
     }
   </style>
 
-  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
   <script src="{{site.github.url}}/assets/js/docs.min.js"></script>
 </head>
 
@@ -113,7 +113,7 @@
     <div class="container">
       <div class="bs-docs-social">
         {% if site.twitter.enabled %}
-          <a target="_blank" href="https://twitter.com/share" class="twitter-share-button" data-url="{{site.github.url}}" data-count="horizontal" data-via="{{site.twitter.via}}" data-text="{{site.name}}" data-hashtags="{{site.twitter.hash}}">Tweet</a>
+          <a target="_blank" href="http://twitter.com/share" class="twitter-share-button" data-url="{{site.github.url}}" data-count="horizontal" data-via="{{site.twitter.via}}" data-text="{{site.name}}" data-hashtags="{{site.twitter.hash}}">Tweet</a>
         {% endif %}
       </div>
 
@@ -144,8 +144,8 @@
   <!-- Async scripts
   =========================================== -->
   {% if site.header.trianglify %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/trianglify/0.1.2/trianglify.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/trianglify/0.1.2/trianglify.min.js"></script>
   <script>trianglify('{{site.header.color1}}', '{{site.header.color2}}');</script>
   {% endif %}
 
@@ -154,7 +154,7 @@
     window.twttr = (function (d,s,id) {
       var t, js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return; js=d.createElement(s); js.id=id; js.async=1;
-      js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+      js.src="http://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
       return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
     }(document, "script", "twitter-wjs"));
   </script>
@@ -166,7 +166,7 @@
     var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+      js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
   </script>
@@ -177,13 +177,13 @@
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
     ga('create', '{{site.analytics.account}}', '{{site.analytics.domain}}');
     ga('send', 'pageview');
   </script>
   {% endif %}
 
-  <script async src='https://pepper.swat.io/embed.js?eyJwb3NpdGlvbiI6InJpZ2h0IiwiY29sb3IiOiI0QTkwRTIiLCJjdXN0b21Db2xvciI6ZmFsc2UsImljb24iOiJidWJibGUiLCJwcm9ub3VuIjoibWUiLCJsYW5ndWFnZSI6ImVuIiwiYnJhbmRlZCI6ZmFsc2UsImludHJvVGV4dCI6IkhhdmUgYW4gaWRlYSBidXQgbmVlZCBzb21lb25lIHRvIGJ1aWxkIGl0PyBDb250YWN0IG1lIGFuZCB3ZSBtaWdodCBtYWtlIGEgZ3JlYXQgdG9vbCB0b2dldGhlciEiLCJjaGFubmVscyI6W1siZmFjZWJvb2siLCJKZW5zZW5CZXJuYXJkIiwic29jaWFsIl0sWyJ0d2l0dGVyIiwiUHJlU2hvdmUiLCJzb2NpYWwiXSxbImVtYWlsIiwiSmVuc2VuYmVybmFyZDVAR21haWwuY29tIiwiY2xhc3NpYyJdXX0='></script>
+  <script async src='http://pepper.swat.io/embed.js?eyJwb3NpdGlvbiI6InJpZ2h0IiwiY29sb3IiOiI0QTkwRTIiLCJjdXN0b21Db2xvciI6ZmFsc2UsImljb24iOiJidWJibGUiLCJwcm9ub3VuIjoibWUiLCJsYW5ndWFnZSI6ImVuIiwiYnJhbmRlZCI6ZmFsc2UsImludHJvVGV4dCI6IkhhdmUgYW4gaWRlYSBidXQgbmVlZCBzb21lb25lIHRvIGJ1aWxkIGl0PyBDb250YWN0IG1lIGFuZCB3ZSBtaWdodCBtYWtlIGEgZ3JlYXQgdG9vbCB0b2dldGhlciEiLCJjaGFubmVscyI6W1siZmFjZWJvb2siLCJKZW5zZW5CZXJuYXJkIiwic29jaWFsIl0sWyJ0d2l0dGVyIiwiUHJlU2hvdmUiLCJzb2NpYWwiXSxbImVtYWlsIiwiSmVuc2VuYmVybmFyZDVAR21haWwuY29tIiwiY2xhc3NpYyJdXX0='></script>
 
 </body>
 </html>
