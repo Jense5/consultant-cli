@@ -15,6 +15,9 @@ on the nature of the project. Check the <a href="http://consultant.js.org">docs<
 more info.
 </p>
 
+
+<h2><a href="http://consultant.js.org">Getting Started</a></h2>
+
 ###### Installation
 
 ```sh
