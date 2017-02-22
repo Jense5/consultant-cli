@@ -23,6 +23,14 @@ const fetchRepoURL = absolute =>
   .then(line => (line ? line.replace(urlPrefix, '') : undefined));
 
 /**
+ * Reverts the name of the installed boilerplate based on the absolute path of the git configuration
+ * file location.
+ * @param {string} gitConfigPath The path of the git configuration file of the boilerplate
+ * @returns {string} The name of the boilerplate based on the git configuration path
+ */
+const revertName = gitConfigPath => path.basename(gitConfigPath.replace('.git/config', ''));
+
+/**
  * Exports the installed templates of the consultant boilerplate folder to a valid batch file, which
  * is easy to install on another device (or backup the consultant configuration).
  * @returns {Promise<>} A promise with the batch data
@@ -33,7 +41,8 @@ const exportFunction = (): Promise<Array<string>> =>
       const abspaths = names.map(name => path.resolve(process.env.templates || '.', name, '.git/config'));
       const realAbsPaths = abspaths.filter(file => fse.existsSync(file));
       Promise.map(realAbsPaths, ap => fetchRepoURL(ap)).then((urls) => {
-        resolve({ data: urls.map((url, i) => ({ url, name: names[i] })).filter(e => !!e.url) });
+        const ns = realAbsPaths.map(e => revertName(e));
+        resolve({ data: urls.map((url, i) => ({ url, name: ns[i] })).filter(e => !!e.url) });
       }).catch(fail);
     }).catch(fail);
   });
