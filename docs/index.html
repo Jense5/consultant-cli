@@ -387,6 +387,17 @@ $ cst help
 $ cst batch batch.json
 {% endhighlight %}
 
+  <h2 id="export">Export</h2>
+  <p>
+    You can also export the current consultant setup to a batch file so you can easily make backups
+    or copy configurations to other machines. When no output location is provided, the batch file
+    will be printed.
+  </p>
+{% highlight shell %}
+$ cst export
+$ cst export batch.json
+{% endhighlight %}
+
   <h2 id="reset">Reset</h2>
   <p>
     Being able to add a lot of boilerplates with one single command makes it easy to make backups
