@@ -20,7 +20,7 @@ const batchCommand = (raw: string): Promise<> =>
       if (fse.existsSync(location) && fse.statSync(location).isFile()) {
         try {
           const pack = JSON.parse(fse.readFileSync(location, 'utf8'));
-          Promise.reduce(pack.data, (a, e) => add(e.uri, e.name), [])
+          Promise.reduce(pack.data, (a, e) => add(e.url, e.name), [])
           .then(() => utils.info(content.done()))
           .then(resolve)
           .catch(() => utils.info(content.invalidBatch()));

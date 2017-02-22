@@ -21,6 +21,7 @@ import update from './inter/update';
 import remove from './inter/remove';
 import create from './inter/create';
 import snapshot from './inter/snapshot';
+import exportCommand from './inter/export';
 
 // Load the default package configuration in order to have access
 // to the current version, so we can present it to the user.
@@ -70,6 +71,7 @@ switch (commander.args[0].toUpperCase()) {
   case 'CREATE': create(...commander.args.slice(1)); break;
   case 'REMOVE': remove(...commander.args.slice(1)); break;
   case 'SNAPSHOT': snapshot(...commander.args.slice(1)); break;
+  case 'EXPORT': exportCommand(...commander.args.slice(1)); break;
   default:
     utils.info(content.invalidCommand());
     process.exit();

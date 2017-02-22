@@ -40,7 +40,7 @@ ${names.map(name => `- '${name}'`).join('\n')}` :
 
 exports.help = () =>
 `The valid commands in this version:
-add - batch - create - help - list - remove - reset - snapshot - update
+add - batch - create - help - list - remove - reset - snapshot - update - export
 Check the docs: ${chalk.cyan('http://consultant.js.org')}
 Report issue: ${chalk.cyan('https://github.com/Jense5/consultant/issues')}`;
 
