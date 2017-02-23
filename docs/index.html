@@ -295,6 +295,21 @@ export default (template) => {
     function is finished.
   </p>
 
+  <h2 id="custom-filters">Filters</h2>
+  <p>
+    You can also make sure that some files don't get parsed by the render function. You can do this
+    with the `dontTouchExtensions` function.
+  </p>
+{% highlight javascript %}
+export default (template) => {
+
+  // ...
+
+  template.dontTouchExtensions(['.png']);
+
+};
+{% endhighlight %}
+
   <h2 id="custom-hide">Secrets</h2>
   <p>
     Consultant provides a very easy way to hide files from a boilerplate generation. This can be
