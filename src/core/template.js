@@ -35,6 +35,7 @@ class Template {
 
   input: Object;
   questions: Array<Object>;
+  staticExtensions: Array<string>;
 
   introduction: string;
   summary: (input: Object) => string;
@@ -49,6 +50,7 @@ class Template {
     this.setSummary();
     this.setIntroduction();
     this.setSourceFolder();
+    this.dontTouchExtensions();
   }
 
   ask(qs: Array<Object> = []): void { this.questions = qs; }
@@ -62,6 +64,8 @@ class Template {
   path(): string { return path.resolve(this.root, this.source); }
   filter(f: string, fl: (options: Object) => boolean): void { this.filters.set(f, fl); }
   configurationPath(): string { return path.resolve(this.root, process.env.configurationFile || ''); }
+
+  dontTouchExtensions(extensions: Array<string> = []) { this.staticExtensions = extensions; }
 
   ignore(f: string): void { this.filters.set(f, () => false); }
   ignoreRecursive(f: string): void {
@@ -101,10 +105,17 @@ class Template {
    */
   renderFile(file: string, output: string): Promise<> {
     return fse.ensureDirAsync(path.dirname(output))
-    .then(() => fse.readFileAsync(file, 'utf8'))
-    .then(data => Mustache.render(data, this.input))
-    .then(data => fse.writeFileAsync(output, data))
-    .then(() => winston.debug(`Rendered ${chalk.yellow(file)} in ${chalk.cyan(output)}`));
+    .then(() => {
+      utils.info(this.staticExtensions);
+      utils.info(path.extname(file));
+      if (this.staticExtensions.indexOf(path.extname(file)) <= -1) {
+        return fse.readFileAsync(file, 'utf8')
+        .then(data => Mustache.render(data, this.input))
+        .then(data => fse.writeFileAsync(output, data))
+        .then(() => winston.debug(`Rendered ${chalk.yellow(file)} in ${chalk.cyan(output)}`));
+      }
+      return fse.copyAsync(file, output);
+    });
   }
 
   /**
