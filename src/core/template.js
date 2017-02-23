@@ -106,8 +106,6 @@ class Template {
   renderFile(file: string, output: string): Promise<> {
     return fse.ensureDirAsync(path.dirname(output))
     .then(() => {
-      utils.info(this.staticExtensions);
-      utils.info(path.extname(file));
       if (this.staticExtensions.indexOf(path.extname(file)) <= -1) {
         return fse.readFileAsync(file, 'utf8')
         .then(data => Mustache.render(data, this.input))
